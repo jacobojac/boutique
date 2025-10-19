@@ -483,7 +483,11 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Nom *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre nom" className="h-12" {...field} />
+                            <Input
+                              placeholder="Votre nom"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -498,7 +502,11 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Prénom *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre prénom" className="h-12" {...field} />
+                            <Input
+                              placeholder="Votre prénom"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -552,7 +560,11 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Code postal *</FormLabel>
                           <FormControl>
-                            <Input placeholder="75001" className="h-12" {...field} />
+                            <Input
+                              placeholder="75001"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -567,7 +579,11 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Ville *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Paris" className="h-12" {...field} />
+                            <Input
+                              placeholder="Paris"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -617,11 +633,13 @@ function OrderConfirmationContent() {
                               value={field.value}
                               className="space-y-4"
                             >
-                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                                field.value === "hand-delivery-aulnay"
-                                  ? "border-green-500 bg-green-50 shadow-md"
-                                  : "border-gray-200 hover:border-green-300 hover:shadow-sm"
-                              }`}>
+                              <div
+                                className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                  field.value === "hand-delivery-aulnay"
+                                    ? "border-green-500 bg-green-50 shadow-md"
+                                    : "border-gray-200 hover:border-green-300 hover:shadow-sm"
+                                }`}
+                              >
                                 <RadioGroupItem
                                   value="hand-delivery-aulnay"
                                   id="hand-delivery-aulnay"
@@ -643,11 +661,13 @@ function OrderConfirmationContent() {
                                 </span>
                               </div>
 
-                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                                field.value === "hand-delivery-idf"
-                                  ? "border-blue-500 bg-blue-50 shadow-md"
-                                  : "border-gray-200 hover:border-blue-300 hover:shadow-sm"
-                              }`}>
+                              <div
+                                className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                  field.value === "hand-delivery-idf"
+                                    ? "border-blue-500 bg-blue-50 shadow-md"
+                                    : "border-gray-200 hover:border-blue-300 hover:shadow-sm"
+                                }`}
+                              >
                                 <RadioGroupItem
                                   value="hand-delivery-idf"
                                   id="hand-delivery-idf"
@@ -661,7 +681,8 @@ function OrderConfirmationContent() {
                                     Livraison de main à main
                                   </span>
                                   <span className="text-sm text-gray-600 block mt-1">
-                                    En Île-de-France (gratuite à partir de 180€ d&apos;achat)
+                                    En Île-de-France (gratuite à partir de 180€
+                                    d&apos;achat)
                                   </span>
                                 </Label>
                                 <span className="font-bold text-blue-600 text-lg">
@@ -669,11 +690,13 @@ function OrderConfirmationContent() {
                                 </span>
                               </div>
 
-                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                                field.value === "parcel-france-relais"
-                                  ? "border-orange-500 bg-orange-50 shadow-md"
-                                  : "border-gray-200 hover:border-orange-300 hover:shadow-sm"
-                              }`}>
+                              <div
+                                className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                  field.value === "parcel-france-relais"
+                                    ? "border-orange-500 bg-orange-50 shadow-md"
+                                    : "border-gray-200 hover:border-orange-300 hover:shadow-sm"
+                                }`}
+                              >
                                 <RadioGroupItem
                                   value="parcel-france-relais"
                                   id="parcel-france-relais"
@@ -695,11 +718,13 @@ function OrderConfirmationContent() {
                                 </span>
                               </div>
 
-                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                                field.value === "parcel-france-home"
-                                  ? "border-purple-500 bg-purple-50 shadow-md"
-                                  : "border-gray-200 hover:border-purple-300 hover:shadow-sm"
-                              }`}>
+                              <div
+                                className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                  field.value === "parcel-france-home"
+                                    ? "border-purple-500 bg-purple-50 shadow-md"
+                                    : "border-gray-200 hover:border-purple-300 hover:shadow-sm"
+                                }`}
+                              >
                                 <RadioGroupItem
                                   value="parcel-france-home"
                                   id="parcel-france-home"
@@ -807,10 +832,10 @@ function OrderConfirmationContent() {
                       {form.getValues("deliveryMethod") ===
                         "hand-delivery-idf" &&
                         "Livraison de main à main en Île-de-France"}
-                      {form.getValues("deliveryMethod") === "parcel-france-relais" &&
-                        "Envoi en point relais : 5€"}
-                      {form.getValues("deliveryMethod") === "parcel-france-home" &&
-                        "Envoi à domicile : 8,90€"}
+                      {form.getValues("deliveryMethod") ===
+                        "parcel-france-relais" && "Envoi en point relais : 5€"}
+                      {form.getValues("deliveryMethod") ===
+                        "parcel-france-home" && "Envoi à domicile : 8,90€"}
                       {!form.getValues("deliveryMethod") && "Non sélectionné"}
                     </p>
                   </div>
@@ -945,7 +970,7 @@ function OrderConfirmationContent() {
                     Si le bouton ne fonctionne pas, cliquez sur ce lien :
                   </p>
                   <a
-                    href={`https://wa.me/+33757837110?text=${encodeURIComponent(
+                    href={`https://wa.me/+33759387212?text=${encodeURIComponent(
                       formatOrderMessage()
                     )}`}
                     target="_blank"
