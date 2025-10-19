@@ -197,24 +197,24 @@ exports.Prisma.InvitationScalarFieldEnum = {
 exports.Prisma.CollectionScalarFieldEnum = {
   id: 'id',
   nom: 'nom',
-  description: 'description',
   slug: 'slug',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  description: 'description'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
-  nom: 'nom',
-  slug: 'slug',
   description: 'description',
   prix: 'prix',
   prixReduit: 'prixReduit',
   images: 'images',
-  quantity: 'quantity',
-  actif: 'actif',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  nom: 'nom',
+  quantity: 'quantity',
+  slug: 'slug',
+  actif: 'actif'
 };
 
 exports.Prisma.ProductVariantScalarFieldEnum = {
@@ -222,12 +222,12 @@ exports.Prisma.ProductVariantScalarFieldEnum = {
   productId: 'productId',
   taille: 'taille',
   couleur: 'couleur',
-  couleurHex: 'couleurHex',
   prix: 'prix',
   quantity: 'quantity',
   sku: 'sku',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  couleurHex: 'couleurHex'
 };
 
 exports.Prisma.ProductCollectionScalarFieldEnum = {
@@ -242,20 +242,21 @@ exports.Prisma.OrderScalarFieldEnum = {
   customerName: 'customerName',
   customerEmail: 'customerEmail',
   customerPhone: 'customerPhone',
+  status: 'status',
+  totalAmount: 'totalAmount',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   customerStreet: 'customerStreet',
   customerPostalCode: 'customerPostalCode',
   customerCity: 'customerCity',
   customerCountry: 'customerCountry',
-  status: 'status',
-  subtotalAmount: 'subtotalAmount',
+  discountAmount: 'discountAmount',
   discountType: 'discountType',
   discountValue: 'discountValue',
+  subtotalAmount: 'subtotalAmount',
   discountId: 'discountId',
-  discountAmount: 'discountAmount',
-  totalAmount: 'totalAmount',
-  notes: 'notes',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  deliveryMethod: 'deliveryMethod'
 };
 
 exports.Prisma.DiscountScalarFieldEnum = {

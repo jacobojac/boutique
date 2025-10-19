@@ -21,6 +21,7 @@ interface CreateOrderData {
   customerPostalCode?: string;
   customerCity?: string;
   customerCountry?: string;
+  deliveryMethod?: string;
   subtotalAmount?: number;
   discountType?: string;
   discountValue?: number;
@@ -103,6 +104,7 @@ export async function POST(request: NextRequest) {
           customerPostalCode: data.customerPostalCode,
           customerCity: data.customerCity,
           customerCountry: data.customerCountry,
+          deliveryMethod: data.deliveryMethod,
           subtotalAmount: data.subtotalAmount || data.totalAmount,
           discountType: data.discountType,
           discountValue: data.discountValue,

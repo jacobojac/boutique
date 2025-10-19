@@ -11,6 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -41,6 +43,14 @@ const customerSchema = z.object({
   postalCode: z.string().min(4, "Le code postal est requis"),
   city: z.string().min(2, "La ville est requise"),
   country: z.enum(["France", "Belgique"]),
+  deliveryMethod: z
+    .enum([
+      "hand-delivery-aulnay",
+      "hand-delivery-idf",
+      "parcel-france-relais",
+      "parcel-france-home",
+    ])
+    .optional(),
 });
 
 // Composant qui contient la logique utilisant useSearchParams
@@ -73,6 +83,7 @@ function OrderConfirmationContent() {
       postalCode: "",
       city: "",
       country: "France",
+      deliveryMethod: undefined,
     },
   });
 
@@ -137,13 +148,27 @@ function OrderConfirmationContent() {
 
   // Ne pas vider le panier automatiquement - attendre la sauvegarde réussie
 
-  // Calculer le total final avec réduction
+  // Calculer les frais de livraison
+  const getDeliveryFee = () => {
+    const deliveryMethod = form.watch("deliveryMethod");
+    if (deliveryMethod === "parcel-france-relais") {
+      return 5.0;
+    } else if (deliveryMethod === "parcel-france-home") {
+      return 8.9;
+    }
+    return 0;
+  };
+
+  // Calculer le total final avec réduction et frais de livraison
   const getFinalTotalPrice = () => {
     const subtotal = getTotalPrice();
+    const deliveryFee = getDeliveryFee();
+    let total = subtotal + deliveryFee;
+
     if (appliedDiscount) {
-      return subtotal - appliedDiscount.discountAmount;
+      total = total - appliedDiscount.discountAmount;
     }
-    return subtotal;
+    return total;
   };
 
   // Fonction de soumission du formulaire
@@ -165,25 +190,47 @@ function OrderConfirmationContent() {
     const customerName = `${formValues.firstName} ${formValues.lastName}`;
     const fullAddress = `${formValues.street}\n${formValues.postalCode} ${formValues.city}\n${formValues.country}`;
 
+    // Formater le mode de livraison
+    let deliveryMethodText = "";
+    if (formValues.deliveryMethod === "hand-delivery-aulnay") {
+      deliveryMethodText =
+        "Remise en main propre gratuite sur Aulnay-sous-Bois";
+    } else if (formValues.deliveryMethod === "hand-delivery-idf") {
+      deliveryMethodText = "Livraison de main à main en Île-de-France";
+    } else if (formValues.deliveryMethod === "parcel-france-relais") {
+      deliveryMethodText = "Envoi en point relais";
+    } else if (formValues.deliveryMethod === "parcel-france-home") {
+      deliveryMethodText = "Envoi à domicile";
+    }
+
     const subtotal = getTotalPrice();
+    const deliveryFee = getDeliveryFee();
     const finalTotal = getFinalTotalPrice();
 
     let message =
       `*Nouvelle Commande*\n\n` +
-      `*Numéro: ${orderNumber}\n\n` +
-      `*Client: ${customerName}\n` +
-      `*Téléphone: ${formValues.phone}\n` +
+      `*Numéro: ${orderNumber}*\n\n` +
+      `*Client:* ${customerName}\n` +
+      `*Téléphone:* ${formValues.phone}\n` +
       `*Adresse:*\n${fullAddress}\n\n` +
-      `*Articles commandés:\n${itemsList}\n\n` +
-      `*Sous-total: ${subtotal.toFixed(2)}€\n`;
+      `*Articles commandés:*\n${itemsList}\n\n` +
+      `*Sous-total:* ${subtotal.toFixed(2)}€\n`;
+
+    if (deliveryFee > 0) {
+      message += `*Frais de livraison:* ${deliveryFee.toFixed(2)}€\n`;
+    }
 
     if (appliedDiscount) {
       message += `*Réduction (${
         appliedDiscount.discountCode
-      }): -${appliedDiscount.discountAmount.toFixed(2)}€\n`;
+      }):* -${appliedDiscount.discountAmount.toFixed(2)}€\n`;
     }
 
-    message += `*Total: ${finalTotal.toFixed(2)}€\n\n`;
+    message += `*Total:* ${finalTotal.toFixed(2)}€\n`;
+
+    if (deliveryMethodText) {
+      message += `\n*Mode de livraison:* ${deliveryMethodText}\n`;
+    }
 
     return message;
   }, [
@@ -221,6 +268,7 @@ function OrderConfirmationContent() {
           postalCode: formValues.postalCode,
           city: formValues.city,
           country: formValues.country,
+          deliveryMethod: formValues.deliveryMethod,
         }
       );
 
@@ -242,7 +290,7 @@ function OrderConfirmationContent() {
         const message = encodeURIComponent(formatOrderMessage());
 
         // Générer le message et ouvrir WhatsApp
-        const phoneNumber = "+33757837110";
+        const phoneNumber = "+33759387212";
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
         // Attendre un peu pour que l'utilisateur voie le toast puis ouvrir WhatsApp
@@ -381,6 +429,13 @@ function OrderConfirmationContent() {
                     <span>Sous-total:</span>
                     <span>{getTotalPrice().toFixed(2)}€</span>
                   </div>
+
+                  {getDeliveryFee() > 0 && (
+                    <div className="flex justify-between items-center text-blue-600">
+                      <span>Frais de livraison:</span>
+                      <span>{getDeliveryFee().toFixed(2)}€</span>
+                    </div>
+                  )}
 
                   {appliedDiscount && (
                     <div className="flex justify-between items-center text-green-600">
@@ -544,9 +599,112 @@ function OrderConfirmationContent() {
                     />
                   </div>
 
+                  {/* Mode de livraison */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Choisissez votre mode de livraison
+                    </h3>
+                    <FormField
+                      control={form.control}
+                      name="deliveryMethod"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3">
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              value={field.value}
+                              className="space-y-3"
+                            >
+                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                                <RadioGroupItem
+                                  value="hand-delivery-aulnay"
+                                  id="hand-delivery-aulnay"
+                                  className="mt-0.5"
+                                />
+                                <Label
+                                  htmlFor="hand-delivery-aulnay"
+                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                >
+                                  <span className="font-medium text-gray-900">
+                                    Remise en main propre gratuite
+                                  </span>
+                                  <span className="block text-gray-600">
+                                    Sur Aulnay-sous-Bois
+                                  </span>
+                                </Label>
+                              </div>
+
+                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                                <RadioGroupItem
+                                  value="hand-delivery-idf"
+                                  id="hand-delivery-idf"
+                                  className="mt-0.5"
+                                />
+                                <Label
+                                  htmlFor="hand-delivery-idf"
+                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                >
+                                  <span className="font-medium text-gray-900">
+                                    Livraison de main à main payante
+                                  </span>
+                                  <span className="block text-gray-600">
+                                    En Île-de-France (gratuite à partir de 180€
+                                    d&apos;achat)
+                                  </span>
+                                </Label>
+                              </div>
+
+                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                                <RadioGroupItem
+                                  value="parcel-france-relais"
+                                  id="parcel-france-relais"
+                                  className="mt-0.5"
+                                />
+                                <Label
+                                  htmlFor="parcel-france-relais"
+                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                >
+                                  <span className="font-medium text-gray-900">
+                                    Envoi en point relais : 5€
+                                  </span>
+                                  <span className="block text-gray-600">
+                                    Dans toute la France
+                                  </span>
+                                </Label>
+                              </div>
+                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                                <RadioGroupItem
+                                  value="parcel-france-home"
+                                  id="parcel-france-home"
+                                  className="mt-0.5"
+                                />
+                                <Label
+                                  htmlFor="parcel-france-home"
+                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                >
+                                  <span className="font-medium text-gray-900">
+                                    Envoi à domicile : 8,90€
+                                  </span>
+                                  <span className="block text-gray-600">
+                                    Dans toute la France
+                                  </span>
+                                </Label>
+                              </div>
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
                   <Button
                     type="submit"
-                    disabled={orderLoading || !form.formState.isValid}
+                    disabled={
+                      orderLoading ||
+                      !form.formState.isValid ||
+                      !form.watch("deliveryMethod")
+                    }
                     className="w-full cursor-pointer"
                     size="lg"
                   >
@@ -606,6 +764,25 @@ function OrderConfirmationContent() {
                       </p>
                       <p>{form.getValues("country")}</p>
                     </div>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <span className="font-medium text-gray-700">
+                      Mode de livraison:
+                    </span>
+                    <p className="text-gray-900 mt-1">
+                      {form.getValues("deliveryMethod") ===
+                        "hand-delivery-aulnay" &&
+                        "Remise en main propre gratuite sur Aulnay-sous-Bois"}
+                      {form.getValues("deliveryMethod") ===
+                        "hand-delivery-idf" &&
+                        "Livraison de main à main en Île-de-France"}
+                      {form.getValues("deliveryMethod") === "parcel-france-relais" &&
+                        "Envoi en point relais : 5€"}
+                      {form.getValues("deliveryMethod") === "parcel-france-home" &&
+                        "Envoi à domicile : 8,90€"}
+                      {!form.getValues("deliveryMethod") && "Non sélectionné"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -782,13 +959,13 @@ function OrderConfirmationContent() {
           </CardContent>
         </Card>
 
-        {/* Informations de contact */}
+        {/* Bouton retour */}
         <Card>
           <CardContent className="p-6">
             <Button
               variant="outline"
               onClick={() => router.push("/")}
-              className="w-full mt-4 cursor-pointer"
+              className="w-full cursor-pointer"
             >
               Retourner à l&#39;accueil
             </Button>

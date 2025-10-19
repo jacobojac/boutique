@@ -10,6 +10,7 @@ interface CreateOrderData {
   customerPostalCode?: string;
   customerCity?: string;
   customerCountry?: string;
+  deliveryMethod?: string;
   totalAmount: number;
   notes?: string;
   items: Array<{
@@ -60,6 +61,7 @@ export const useOrder = () => {
       postalCode?: string;
       city?: string;
       country?: string;
+      deliveryMethod?: string;
     }
   ): Promise<OrderResponse | null> => {
     setIsLoading(true);
@@ -75,6 +77,7 @@ export const useOrder = () => {
         customerPostalCode: customerInfo?.postalCode,
         customerCity: customerInfo?.city,
         customerCountry: customerInfo?.country,
+        deliveryMethod: customerInfo?.deliveryMethod,
         totalAmount,
         items: cartItems.map((item) => ({
           productId: item.productId,
