@@ -483,7 +483,7 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Nom *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre nom" {...field} />
+                            <Input placeholder="Votre nom" className="h-12" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -498,7 +498,7 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Prénom *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre prénom" {...field} />
+                            <Input placeholder="Votre prénom" className="h-12" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -516,6 +516,7 @@ function OrderConfirmationContent() {
                             <Input
                               placeholder="+33 1 23 45 67 89"
                               type="tel"
+                              className="h-12"
                               {...field}
                             />
                           </FormControl>
@@ -534,6 +535,7 @@ function OrderConfirmationContent() {
                           <FormControl>
                             <Input
                               placeholder="123 Rue de la Paix"
+                              className="h-12"
                               {...field}
                             />
                           </FormControl>
@@ -550,7 +552,7 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Code postal *</FormLabel>
                           <FormControl>
-                            <Input placeholder="75001" {...field} />
+                            <Input placeholder="75001" className="h-12" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -565,7 +567,7 @@ function OrderConfirmationContent() {
                         <FormItem>
                           <FormLabel>Ville *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Paris" {...field} />
+                            <Input placeholder="Paris" className="h-12" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -584,7 +586,7 @@ function OrderConfirmationContent() {
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="h-12">
                                 <SelectValue placeholder="Sélectionner un pays" />
                               </SelectTrigger>
                             </FormControl>
@@ -600,95 +602,123 @@ function OrderConfirmationContent() {
                   </div>
 
                   {/* Mode de livraison */}
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <h3 className="font-semibold text-gray-900 mb-3">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 className="font-semibold text-gray-900 mb-4 text-lg">
                       Choisissez votre mode de livraison
                     </h3>
                     <FormField
                       control={form.control}
                       name="deliveryMethod"
                       render={({ field }) => (
-                        <FormItem className="space-y-3">
+                        <FormItem className="space-y-4">
                           <FormControl>
                             <RadioGroup
                               onValueChange={field.onChange}
                               value={field.value}
-                              className="space-y-3"
+                              className="space-y-4"
                             >
-                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                field.value === "hand-delivery-aulnay"
+                                  ? "border-green-500 bg-green-50 shadow-md"
+                                  : "border-gray-200 hover:border-green-300 hover:shadow-sm"
+                              }`}>
                                 <RadioGroupItem
                                   value="hand-delivery-aulnay"
                                   id="hand-delivery-aulnay"
-                                  className="mt-0.5"
+                                  className="w-5 h-5"
                                 />
                                 <Label
                                   htmlFor="hand-delivery-aulnay"
-                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                  className="flex-1 cursor-pointer"
                                 >
-                                  <span className="font-medium text-gray-900">
+                                  <span className="font-semibold text-gray-900 text-base block">
                                     Remise en main propre gratuite
                                   </span>
-                                  <span className="block text-gray-600">
+                                  <span className="text-sm text-gray-600 block mt-1">
                                     Sur Aulnay-sous-Bois
                                   </span>
                                 </Label>
+                                <span className="font-bold text-green-600 text-lg">
+                                  GRATUIT
+                                </span>
                               </div>
 
-                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                field.value === "hand-delivery-idf"
+                                  ? "border-blue-500 bg-blue-50 shadow-md"
+                                  : "border-gray-200 hover:border-blue-300 hover:shadow-sm"
+                              }`}>
                                 <RadioGroupItem
                                   value="hand-delivery-idf"
                                   id="hand-delivery-idf"
-                                  className="mt-0.5"
+                                  className="w-5 h-5"
                                 />
                                 <Label
                                   htmlFor="hand-delivery-idf"
-                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                  className="flex-1 cursor-pointer"
                                 >
-                                  <span className="font-medium text-gray-900">
-                                    Livraison de main à main payante
+                                  <span className="font-semibold text-gray-900 text-base block">
+                                    Livraison de main à main
                                   </span>
-                                  <span className="block text-gray-600">
-                                    En Île-de-France (gratuite à partir de 180€
-                                    d&apos;achat)
+                                  <span className="text-sm text-gray-600 block mt-1">
+                                    En Île-de-France (gratuite à partir de 180€ d&apos;achat)
                                   </span>
                                 </Label>
+                                <span className="font-bold text-blue-600 text-lg">
+                                  Payant
+                                </span>
                               </div>
 
-                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                field.value === "parcel-france-relais"
+                                  ? "border-orange-500 bg-orange-50 shadow-md"
+                                  : "border-gray-200 hover:border-orange-300 hover:shadow-sm"
+                              }`}>
                                 <RadioGroupItem
                                   value="parcel-france-relais"
                                   id="parcel-france-relais"
-                                  className="mt-0.5"
+                                  className="w-5 h-5"
                                 />
                                 <Label
                                   htmlFor="parcel-france-relais"
-                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                  className="flex-1 cursor-pointer"
                                 >
-                                  <span className="font-medium text-gray-900">
-                                    Envoi en point relais : 5€
+                                  <span className="font-semibold text-gray-900 text-base block">
+                                    Envoi en point relais
                                   </span>
-                                  <span className="block text-gray-600">
+                                  <span className="text-sm text-gray-600 block mt-1">
                                     Dans toute la France
                                   </span>
                                 </Label>
+                                <span className="font-bold text-orange-600 text-lg">
+                                  5,00€
+                                </span>
                               </div>
-                              <div className="flex items-start space-x-3 bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-400 transition-colors">
+
+                              <div className={`flex items-center space-x-4 bg-white p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                field.value === "parcel-france-home"
+                                  ? "border-purple-500 bg-purple-50 shadow-md"
+                                  : "border-gray-200 hover:border-purple-300 hover:shadow-sm"
+                              }`}>
                                 <RadioGroupItem
                                   value="parcel-france-home"
                                   id="parcel-france-home"
-                                  className="mt-0.5"
+                                  className="w-5 h-5"
                                 />
                                 <Label
                                   htmlFor="parcel-france-home"
-                                  className="flex-1 cursor-pointer text-sm leading-relaxed"
+                                  className="flex-1 cursor-pointer"
                                 >
-                                  <span className="font-medium text-gray-900">
-                                    Envoi à domicile : 8,90€
+                                  <span className="font-semibold text-gray-900 text-base block">
+                                    Envoi à domicile
                                   </span>
-                                  <span className="block text-gray-600">
+                                  <span className="text-sm text-gray-600 block mt-1">
                                     Dans toute la France
                                   </span>
                                 </Label>
+                                <span className="font-bold text-purple-600 text-lg">
+                                  8,90€
+                                </span>
                               </div>
                             </RadioGroup>
                           </FormControl>
