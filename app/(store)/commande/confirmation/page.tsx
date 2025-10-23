@@ -38,6 +38,7 @@ import { z } from "zod";
 const customerSchema = z.object({
   firstName: z.string().min(1, "Le prénom est requis"),
   lastName: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Email invalide").min(1, "L'email est requis"),
   phone: z.string().min(10, "Le téléphone doit contenir au moins 10 chiffres"),
   street: z.string().min(5, "L'adresse doit contenir au moins 5 caractères"),
   postalCode: z.string().min(4, "Le code postal est requis"),
@@ -75,9 +76,11 @@ function OrderConfirmationContent() {
   // Formulaire avec react-hook-form et zod
   const form = useForm<z.infer<typeof customerSchema>>({
     resolver: zodResolver(customerSchema),
+    mode: "onChange", // Valide à chaque changement
     defaultValues: {
       firstName: "",
       lastName: "",
+      email: "",
       phone: "",
       street: "",
       postalCode: "",
@@ -211,6 +214,7 @@ function OrderConfirmationContent() {
       `*Nouvelle Commande*\n\n` +
       `*Numéro: ${orderNumber}*\n\n` +
       `*Client:* ${customerName}\n` +
+      `*Email:* ${formValues.email}\n` +
       `*Téléphone:* ${formValues.phone}\n` +
       `*Adresse:*\n${fullAddress}\n\n` +
       `*Articles commandés:*\n${itemsList}\n\n` +
@@ -263,6 +267,7 @@ function OrderConfirmationContent() {
         getFinalTotalPrice(),
         {
           name: customerName,
+          email: formValues.email,
           phone: formValues.phone,
           street: formValues.street,
           postalCode: formValues.postalCode,
@@ -504,6 +509,26 @@ function OrderConfirmationContent() {
                           <FormControl>
                             <Input
                               placeholder="Votre prénom"
+                              className="h-12"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* Email */}
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                          <FormLabel>Email *</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="votre@email.com"
+                              type="email"
                               className="h-12"
                               {...field}
                             />
@@ -802,6 +827,13 @@ function OrderConfirmationContent() {
                   </div>
 
                   <div>
+                    <span className="font-medium text-gray-700">
+                      Email:
+                    </span>
+                    <p className="text-gray-900">{form.getValues("email")}</p>
+                  </div>
+
+                  <div className="md:col-span-2">
                     <span className="font-medium text-gray-700">
                       Téléphone:
                     </span>
