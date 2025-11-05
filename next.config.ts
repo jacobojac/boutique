@@ -6,11 +6,9 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "utfs.io",
-        pathname: "/f/**",
       },
     ],
-    formats: ["image/webp", "image/avif"],
-    dangerouslyAllowSVG: true,
+    unoptimized: false,
   },
 };
 
