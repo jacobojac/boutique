@@ -6,15 +6,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "utfs.io",
-        port: "",
-        pathname: "/**",
+        pathname: "/f/**",
       },
     ],
     formats: ["image/webp", "image/avif"],
-    qualities: [75, 90, 95, 100],
     dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
