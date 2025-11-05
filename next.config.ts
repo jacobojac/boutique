@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
         hostname: "utfs.io",
       },
     ],
-    unoptimized: true, // Bypass Next.js Image Optimization to avoid 402 errors
+    // Utiliser le loader d'UploadThing directement au lieu de l'optimisation Vercel
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
 };
 
