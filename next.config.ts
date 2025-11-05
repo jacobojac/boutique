@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         hostname: "utfs.io",
       },
     ],
-    unoptimized: false,
+    unoptimized: true, // Bypass Next.js Image Optimization to avoid 402 errors
   },
 };
 
