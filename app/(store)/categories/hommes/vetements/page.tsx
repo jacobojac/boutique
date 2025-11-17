@@ -4,6 +4,8 @@ import { Collection, TypeProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 
+// Force le rendu dynamique côté serveur (pas de pré-rendu au build)
+export const dynamic = "force-dynamic";
 // Cache 5 minutes + revalidation en arrière-plan
 export const revalidate = 300;
 
