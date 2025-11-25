@@ -56,7 +56,7 @@ function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const orderNumberParam = searchParams.get("orderNumber");
 
-  const { items, clearCart, appliedDiscount } = useCartStore();
+  const { items, clearCart } = useCartStore();
   const { createOrder, isLoading: orderLoading, error: orderError } = useOrder();
 
   const [orderNumber, setOrderNumber] = useState("");
@@ -109,11 +109,8 @@ function OrderConfirmationContent() {
 
   const getFinalTotalPrice = useCallback(() => {
     let total = getTotalPrice() + getDeliveryFee();
-    if (appliedDiscount) {
-      total -= appliedDiscount.discountAmount;
-    }
     return Math.max(0, total);
-  }, [getTotalPrice, getDeliveryFee, appliedDiscount]);
+  }, [getTotalPrice, getDeliveryFee]);
 
   const onSubmitCustomerInfo = async (data: CustomerFormValues) => {
     setFormCompleted(true);
@@ -147,13 +144,10 @@ function OrderConfirmationContent() {
     message += `💰 *Résumé:*\n`;
     message += `Sous-total: ${getTotalPrice().toFixed(2)}€\n`;
     message += `Livraison: ${getDeliveryFee().toFixed(2)}€\n`;
-    if (appliedDiscount) {
-      message += `Réduction: -${appliedDiscount.discountAmount.toFixed(2)}€\n`;
-    }
     message += `*Total: ${getFinalTotalPrice().toFixed(2)}€*`;
 
     return message;
-  }, [form, items, orderNumber, getTotalPrice, getDeliveryFee, getFinalTotalPrice, appliedDiscount]);
+  }, [form, items, orderNumber, getTotalPrice, getDeliveryFee, getFinalTotalPrice]);
 
   const handleWhatsAppClick = async () => {
     if (!formCompleted) {
@@ -561,15 +555,6 @@ function OrderConfirmationContent() {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Livraison</span>
                     <span className="font-medium">{getDeliveryFee().toFixed(2)}€</span>
-                  </div>
-                )}
-
-                {appliedDiscount && (
-                  <div className="flex justify-between text-sm text-green-600">
-                    <span>Réduction</span>
-                    <span className="font-medium">
-                      -{appliedDiscount.discountAmount.toFixed(2)}€
-                    </span>
                   </div>
                 )}
               </div>
