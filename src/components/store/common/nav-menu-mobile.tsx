@@ -7,72 +7,24 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { IconMenuDeep, IconSquareX } from "@tabler/icons-react";
+import type { NavMenuItemWithCollection } from "@/lib/site-config";
+import { IconMenu2, IconSquareX } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState } from "react";
 
-const menuFemme: { titre: string; link: string }[] = [
-  {
-    titre: "Manteaux/Vestes",
-    link: "/categories/femmes/vetements/manteaux-vestes",
-  },
-  {
-    titre: "Hauts/Top",
-    link: "/categories/femmes/vetements/hauts-top",
-  },
-  {
-    titre: "Pantalons",
-    link: "/categories/femmes/vetements/pantalons",
-  },
-  {
-    titre: "Ensembles",
-    link: "/categories/femmes/vetements/ensembles",
-  },
-  {
-    titre: "Chaussures",
-    link: "/categories/femmes/chaussures",
-  },
-  {
-    titre: "Accesoires",
-    link: "/categories/femmes/vetements/accessoires",
-  },
-];
+interface NavBarMobileProps {
+  menuHomme: NavMenuItemWithCollection[];
+  menuFemme: NavMenuItemWithCollection[];
+}
 
-const menuHomme: { titre: string; link: string }[] = [
-  {
-    titre: "Manteaux/Vestes",
-    link: "/categories/hommes/vetements/manteaux-vestes",
-  },
-  {
-    titre: "Hauts/Top",
-    link: "/categories/hommes/vetements/hauts-top",
-  },
-  {
-    titre: "Pantalons",
-    link: "/categories/hommes/vetements/pantalons",
-  },
-  {
-    titre: "Ensembles",
-    link: "/categories/hommes/vetements/ensembles",
-  },
-  {
-    titre: "Chaussures",
-    link: "/categories/hommes/chaussures",
-  },
-  {
-    titre: "Accesoires",
-    link: "/categories/hommes/vetements/accessoires",
-  },
-];
-
-export const NavBarMobile = () => {
+export const NavBarMobile = ({ menuHomme, menuFemme }: NavBarMobileProps) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   return (
-    <div className="order-3">
+    <div className="order-first">
       <Drawer direction="right" open={openMenu} onOpenChange={setOpenMenu}>
         <DrawerTrigger>
-          <IconMenuDeep className="h-8 w-8" />
+          <IconMenu2 className="h-8 w-8" />
         </DrawerTrigger>
         <DrawerContent className="h-full w-full sm:max-w-md sm:ml-auto right-0 top-0 bottom-0 fixed z-50 sm:rounded-l-lg data-[vaul-drawer-direction=right]:w-full sm:data-[vaul-drawer-direction=right]:w-auto">
           <DrawerHeader>
@@ -92,47 +44,51 @@ export const NavBarMobile = () => {
                 href="/"
                 className="text-lg font-semibold text-gray-900 hover:text-gray-600"
               >
-                🏠 Accueil
+                Accueil
               </Link>
             </div>
 
             {/* Section Femme */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
-                Pour Elle
-              </h3>
-              <ul className="space-y-2 pl-4">
-                {menuFemme.map((menu) => (
-                  <li key={menu.titre} onClick={() => setOpenMenu(false)}>
-                    <Link
-                      href={menu.link}
-                      className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
-                    >
-                      {menu.titre}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {menuFemme.length > 0 && (
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
+                  Pour Elle
+                </h3>
+                <ul className="space-y-2 pl-4">
+                  {menuFemme.map((menu) => (
+                    <li key={menu.id} onClick={() => setOpenMenu(false)}>
+                      <Link
+                        href={`/collections/${menu.collectionSlug}`}
+                        className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
+                      >
+                        {menu.collectionNom}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Section Homme */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
-                Pour Lui
-              </h3>
-              <ul className="space-y-2 pl-4">
-                {menuHomme.map((menu) => (
-                  <li key={menu.titre} onClick={() => setOpenMenu(false)}>
-                    <Link
-                      href={menu.link}
-                      className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
-                    >
-                      {menu.titre}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {menuHomme.length > 0 && (
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
+                  Pour Lui
+                </h3>
+                <ul className="space-y-2 pl-4">
+                  {menuHomme.map((menu) => (
+                    <li key={menu.id} onClick={() => setOpenMenu(false)}>
+                      <Link
+                        href={`/collections/${menu.collectionSlug}`}
+                        className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
+                      >
+                        {menu.collectionNom}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Favoris */}
             <div

@@ -3,12 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore, WishlistItem } from "@/store/wishlist-store";
-import {
-  IconHeart,
-  IconShoppingCart,
-  IconTrash,
-  IconX,
-} from "@tabler/icons-react";
+import { IconHeart, IconTrash, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -81,7 +76,7 @@ export default function WishlistPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Ma Wishlist
+              Mes favoris
             </h1>
             <p className="text-gray-600">
               {displayItems.length} produit{displayItems.length > 1 ? "s" : ""}{" "}
@@ -106,10 +101,10 @@ export default function WishlistPage() {
           {displayItems.map((item) => (
             <div
               key={item.productId}
-              className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group"
+              className="bg-white shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group"
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] bg-gray-100">
+              <div className="relative aspect-square bg-gray-100">
                 <Image
                   src={item.image}
                   alt={item.nom}
@@ -129,7 +124,7 @@ export default function WishlistPage() {
                 {/* Sale badge */}
                 {item.prixReduit && (
                   <div className="absolute top-3 left-3">
-                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                    <span className="bg-[#EA445A] text-white text-xs font-bold px-2 py-1 rounded">
                       -
                       {Math.round(
                         ((item.prix - item.prixReduit) / item.prix) * 100
@@ -188,7 +183,6 @@ export default function WishlistPage() {
                     className="flex-1 bg-black hover:bg-gray-800 text-white"
                     size="sm"
                   >
-                    <IconShoppingCart className="mr-2 h-4 w-4" />
                     Ajouter au panier
                   </Button>
 

@@ -14,14 +14,17 @@ export const AnnounecemntBar = () => {
 
   // Messages à faire défiler
   const messages = [
-    config.announcement_message || "Livraison gratuite dès 50€ d'achat",
-    config.announcement_message_2 ||
-      "🔥 Profitez de nos codes de réduction sur tous nos produits !",
-  ];
+    config.announcement_message,
+    config.announcement_message_2,
+  ].filter(Boolean);
+
+  if (messages.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="w-full md:max-w-7xl md:mx-auto md:px-8">
-      <div className="bg-black text-white py-2">
+    <div className="w-full">
+      <div className="bg-tertiory py-3 text-muted-foreground">
         <Carousel
           plugins={[plugin.current]}
           className="w-full"

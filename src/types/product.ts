@@ -23,6 +23,7 @@ export type ProductVariant = {
   prix: number | null;
   quantity: number;
   sku: string | null;
+  stockZeroEnabled: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -224,6 +224,7 @@ exports.Prisma.ProductVariantScalarFieldEnum = {
   couleur: 'couleur',
   prix: 'prix',
   quantity: 'quantity',
+  stockZeroEnabled: 'stockZeroEnabled',
   sku: 'sku',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

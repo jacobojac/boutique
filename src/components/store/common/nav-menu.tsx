@@ -12,98 +12,61 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import type { NavMenuItemWithCollection } from "@/lib/site-config";
 
-const menuFemme: { titre: string; link: string }[] = [
-  {
-    titre: "Manteaux/Vestes",
-    link: "/categories/femmes/vetements/manteaux-vestes",
-  },
-  {
-    titre: "Hauts/Top",
-    link: "/categories/femmes/vetements/hauts-top",
-  },
-  {
-    titre: "Pantalons",
-    link: "/categories/femmes/vetements/pantalons",
-  },
-  {
-    titre: "Ensembles",
-    link: "/categories/femmes/vetements/ensembles",
-  },
-  {
-    titre: "Chaussures",
-    link: "/categories/femmes/chaussures",
-  },
-  {
-    titre: "Accesoires",
-    link: "/categories/femmes/vetements/accessoires",
-  },
-];
+interface NavMenuProps {
+  menuHomme: NavMenuItemWithCollection[];
+  menuFemme: NavMenuItemWithCollection[];
+}
 
-const menuHomme: { titre: string; link: string }[] = [
-  {
-    titre: "Manteaux/Vestes",
-    link: "/categories/hommes/vetements/manteaux-vestes",
-  },
-  {
-    titre: "Hauts/Top",
-    link: "/categories/hommes/vetements/hauts-top",
-  },
-  {
-    titre: "Pantalons",
-    link: "/categories/hommes/vetements/pantalons",
-  },
-  {
-    titre: "Ensembles",
-    link: "/categories/hommes/vetements/ensembles",
-  },
-  {
-    titre: "Chaussures",
-    link: "/categorie/hommes/chaussures",
-  },
-  {
-    titre: "Accesoires",
-    link: "/categories/hommes/vetements/accessoires",
-  },
-];
-
-export function NavMenu() {
+export function NavMenu({ menuHomme, menuFemme }: NavMenuProps) {
   return (
     <NavigationMenu viewport={false} className="z-50">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>POUR ELLE</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-2 w-[200px]">
-              {menuFemme.map((menu) => (
-                <ListItem
-                  key={menu.titre}
-                  title={menu.titre}
-                  href={menu.link}
-                ></ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>POUR LUI</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-2 w-[200px]">
-              {menuHomme.map((menu) => (
-                <ListItem
-                  key={menu.titre}
-                  title={menu.titre}
-                  href={menu.link}
-                ></ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/wishlist">FAVORIS</Link>
+          <NavigationMenuLink
+            asChild
+            className={`${navigationMenuTriggerStyle()} text-lg font-light`}
+          >
+            <Link href="/">ACCUEIL</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+        {menuHomme.length > 0 && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="text-lg font-light">
+              HOMME
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-2 w-[200px]">
+                {menuHomme.map((menu) => (
+                  <ListItem
+                    key={menu.id}
+                    title={menu.collectionNom}
+                    href={`/homme/${menu.collectionSlug}`}
+                  />
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
+        {menuFemme.length > 0 && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="text-lg font-light">
+              FEMME
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-2 w-[200px]">
+                {menuFemme.map((menu) => (
+                  <ListItem
+                    key={menu.id}
+                    title={menu.collectionNom}
+                    href={`/femme/${menu.collectionSlug}`}
+                  />
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

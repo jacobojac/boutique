@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Josefin_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const josefin = Josefin_Sans({
+  variable: "--font-josefin-sans",
   subsets: ["latin"],
 });
 
@@ -23,12 +23,7 @@ export default function RootLayout({
       <html lang="fr" suppressHydrationWarning>
         <head />
         <body
-          className={cn(
-            geistSans.variable,
-            geistMono.variable,
-            "antialiased",
-            "h-full"
-          )}
+          className={cn(josefin.variable, "antialiased", "h-full")}
           suppressHydrationWarning={true}
         >
           {children}

@@ -12452,6 +12452,7 @@ export namespace Prisma {
     couleur: string | null
     prix: number | null
     quantity: number | null
+    stockZeroEnabled: boolean | null
     sku: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12465,6 +12466,7 @@ export namespace Prisma {
     couleur: string | null
     prix: number | null
     quantity: number | null
+    stockZeroEnabled: boolean | null
     sku: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12478,6 +12480,7 @@ export namespace Prisma {
     couleur: number
     prix: number
     quantity: number
+    stockZeroEnabled: number
     sku: number
     createdAt: number
     updatedAt: number
@@ -12503,6 +12506,7 @@ export namespace Prisma {
     couleur?: true
     prix?: true
     quantity?: true
+    stockZeroEnabled?: true
     sku?: true
     createdAt?: true
     updatedAt?: true
@@ -12516,6 +12520,7 @@ export namespace Prisma {
     couleur?: true
     prix?: true
     quantity?: true
+    stockZeroEnabled?: true
     sku?: true
     createdAt?: true
     updatedAt?: true
@@ -12529,6 +12534,7 @@ export namespace Prisma {
     couleur?: true
     prix?: true
     quantity?: true
+    stockZeroEnabled?: true
     sku?: true
     createdAt?: true
     updatedAt?: true
@@ -12629,6 +12635,7 @@ export namespace Prisma {
     couleur: string | null
     prix: number | null
     quantity: number
+    stockZeroEnabled: boolean
     sku: string | null
     createdAt: Date
     updatedAt: Date
@@ -12661,6 +12668,7 @@ export namespace Prisma {
     couleur?: boolean
     prix?: boolean
     quantity?: boolean
+    stockZeroEnabled?: boolean
     sku?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12675,6 +12683,7 @@ export namespace Prisma {
     couleur?: boolean
     prix?: boolean
     quantity?: boolean
+    stockZeroEnabled?: boolean
     sku?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12689,6 +12698,7 @@ export namespace Prisma {
     couleur?: boolean
     prix?: boolean
     quantity?: boolean
+    stockZeroEnabled?: boolean
     sku?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12703,13 +12713,14 @@ export namespace Prisma {
     couleur?: boolean
     prix?: boolean
     quantity?: boolean
+    stockZeroEnabled?: boolean
     sku?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     couleurHex?: boolean
   }
 
-  export type ProductVariantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "taille" | "couleur" | "prix" | "quantity" | "sku" | "createdAt" | "updatedAt" | "couleurHex", ExtArgs["result"]["productVariant"]>
+  export type ProductVariantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "taille" | "couleur" | "prix" | "quantity" | "stockZeroEnabled" | "sku" | "createdAt" | "updatedAt" | "couleurHex", ExtArgs["result"]["productVariant"]>
   export type ProductVariantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }
@@ -12732,6 +12743,7 @@ export namespace Prisma {
       couleur: string | null
       prix: number | null
       quantity: number
+      stockZeroEnabled: boolean
       sku: string | null
       createdAt: Date
       updatedAt: Date
@@ -13166,6 +13178,7 @@ export namespace Prisma {
     readonly couleur: FieldRef<"ProductVariant", 'String'>
     readonly prix: FieldRef<"ProductVariant", 'Float'>
     readonly quantity: FieldRef<"ProductVariant", 'Int'>
+    readonly stockZeroEnabled: FieldRef<"ProductVariant", 'Boolean'>
     readonly sku: FieldRef<"ProductVariant", 'String'>
     readonly createdAt: FieldRef<"ProductVariant", 'DateTime'>
     readonly updatedAt: FieldRef<"ProductVariant", 'DateTime'>
@@ -19545,6 +19558,7 @@ export namespace Prisma {
     couleur: 'couleur',
     prix: 'prix',
     quantity: 'quantity',
+    stockZeroEnabled: 'stockZeroEnabled',
     sku: 'sku',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -20412,6 +20426,7 @@ export namespace Prisma {
     couleur?: StringNullableFilter<"ProductVariant"> | string | null
     prix?: FloatNullableFilter<"ProductVariant"> | number | null
     quantity?: IntFilter<"ProductVariant"> | number
+    stockZeroEnabled?: BoolFilter<"ProductVariant"> | boolean
     sku?: StringNullableFilter<"ProductVariant"> | string | null
     createdAt?: DateTimeFilter<"ProductVariant"> | Date | string
     updatedAt?: DateTimeFilter<"ProductVariant"> | Date | string
@@ -20426,6 +20441,7 @@ export namespace Prisma {
     couleur?: SortOrderInput | SortOrder
     prix?: SortOrderInput | SortOrder
     quantity?: SortOrder
+    stockZeroEnabled?: SortOrder
     sku?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20444,6 +20460,7 @@ export namespace Prisma {
     couleur?: StringNullableFilter<"ProductVariant"> | string | null
     prix?: FloatNullableFilter<"ProductVariant"> | number | null
     quantity?: IntFilter<"ProductVariant"> | number
+    stockZeroEnabled?: BoolFilter<"ProductVariant"> | boolean
     sku?: StringNullableFilter<"ProductVariant"> | string | null
     createdAt?: DateTimeFilter<"ProductVariant"> | Date | string
     updatedAt?: DateTimeFilter<"ProductVariant"> | Date | string
@@ -20458,6 +20475,7 @@ export namespace Prisma {
     couleur?: SortOrderInput | SortOrder
     prix?: SortOrderInput | SortOrder
     quantity?: SortOrder
+    stockZeroEnabled?: SortOrder
     sku?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20479,6 +20497,7 @@ export namespace Prisma {
     couleur?: StringNullableWithAggregatesFilter<"ProductVariant"> | string | null
     prix?: FloatNullableWithAggregatesFilter<"ProductVariant"> | number | null
     quantity?: IntWithAggregatesFilter<"ProductVariant"> | number
+    stockZeroEnabled?: BoolWithAggregatesFilter<"ProductVariant"> | boolean
     sku?: StringNullableWithAggregatesFilter<"ProductVariant"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ProductVariant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProductVariant"> | Date | string
@@ -21635,6 +21654,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21649,6 +21669,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21661,6 +21682,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21675,6 +21697,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21688,6 +21711,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21700,6 +21724,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21713,6 +21738,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22809,6 +22835,7 @@ export namespace Prisma {
     couleur?: SortOrder
     prix?: SortOrder
     quantity?: SortOrder
+    stockZeroEnabled?: SortOrder
     sku?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -22827,6 +22854,7 @@ export namespace Prisma {
     couleur?: SortOrder
     prix?: SortOrder
     quantity?: SortOrder
+    stockZeroEnabled?: SortOrder
     sku?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -22840,6 +22868,7 @@ export namespace Prisma {
     couleur?: SortOrder
     prix?: SortOrder
     quantity?: SortOrder
+    stockZeroEnabled?: SortOrder
     sku?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24955,6 +24984,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24967,6 +24997,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25025,6 +25056,7 @@ export namespace Prisma {
     couleur?: StringNullableFilter<"ProductVariant"> | string | null
     prix?: FloatNullableFilter<"ProductVariant"> | number | null
     quantity?: IntFilter<"ProductVariant"> | number
+    stockZeroEnabled?: BoolFilter<"ProductVariant"> | boolean
     sku?: StringNullableFilter<"ProductVariant"> | string | null
     createdAt?: DateTimeFilter<"ProductVariant"> | Date | string
     updatedAt?: DateTimeFilter<"ProductVariant"> | Date | string
@@ -25853,6 +25885,7 @@ export namespace Prisma {
     couleur?: string | null
     prix?: number | null
     quantity?: number
+    stockZeroEnabled?: boolean
     sku?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25880,6 +25913,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25892,6 +25926,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25904,6 +25939,7 @@ export namespace Prisma {
     couleur?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: NullableFloatFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
+    stockZeroEnabled?: BoolFieldUpdateOperationsInput | boolean
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

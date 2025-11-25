@@ -1,5 +1,11 @@
 "use client";
 import { DiscountReminder } from "@/components/store/product/discount-reminder";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,19 +14,16 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { ProductVariant, TypeProduct } from "@/types/product";
 import {
-  IconHeadset,
   IconHeart,
   IconMinus,
   IconPlus,
   IconShield,
-  IconShieldCheck,
-  IconShoppingCart,
-  IconTruck,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -46,6 +49,7 @@ export default function Page() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -76,9 +80,22 @@ export default function Page() {
 
   const handleVariantChange = (size: string, color: string) => {
     if (product?.variants) {
-      const variant = product.variants.find(
+      // Chercher d'abord par taille et couleur
+      let variant = product.variants.find(
         (v) => v.taille === size && v.couleur === color
       );
+      // Si pas trouvé et pas de couleur, chercher seulement par taille
+      if (!variant && !color) {
+        variant = product.variants.find((v) => v.taille === size);
+      }
+      // Si pas trouvé et pas de taille, chercher seulement par couleur
+      if (!variant && !size) {
+        variant = product.variants.find((v) => v.couleur === color);
+      }
+      // Fallback: chercher seulement par taille si la combinaison exacte n'existe pas
+      if (!variant) {
+        variant = product.variants.find((v) => v.taille === size);
+      }
       if (variant) {
         setSelectedVariant(variant);
       }
@@ -97,18 +114,9 @@ export default function Page() {
     return product?.prix || 0;
   };
 
-  const getMaxQuantity = () => {
-    if (selectedVariant) {
-      return selectedVariant.quantity || 0;
-    }
-    return product?.quantity || 0;
-  };
-
   const handleQuantityChange = (action: "increment" | "decrement") => {
-    const maxQuantity = getMaxQuantity();
-
     if (action === "increment") {
-      setQuantity((prev) => (prev < maxQuantity ? prev + 1 : prev));
+      setQuantity((prev) => prev + 1);
     } else {
       setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
     }
@@ -149,14 +157,14 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Carousel d'images */}
           <div className="space-y-4">
-            <Carousel className="w-full">
+            <Carousel className="w-full" setApi={setCarouselApi}>
               <CarouselContent>
                 {product.images.map((image, index) => (
                   <CarouselItem key={index}>
-                    <div className="aspect-[4/5] relative bg-gray-100 rounded-lg overflow-hidden">
+                    <div className="aspect-square relative bg-gray-100 overflow-hidden">
                       <Image
                         src={image}
                         alt={`${product.nom} - Image ${index + 1}`}
@@ -181,7 +189,7 @@ export default function Page() {
                           {/* New Badge */}
                           {product.collections?.some(
                             (pc) =>
-                              pc.collection.nom.toLowerCase() === "nouveautés"
+                              pc.collection.nom.toLowerCase() === "best sellers"
                           ) && (
                             <div
                               className={`absolute top-4 z-10 ${
@@ -191,7 +199,7 @@ export default function Page() {
                               }`}
                             >
                               <span className="bg-green-600 text-white px-3 py-1 text-sm font-medium">
-                                NOUVEAU
+                                BEST SELLER
                               </span>
                             </div>
                           )}
@@ -208,9 +216,12 @@ export default function Page() {
             {/* Miniatures */}
             <div className="grid grid-cols-4 gap-2">
               {product.images.slice(0, 4).map((image, index) => (
-                <div
+                <button
+                  type="button"
                   key={index}
-                  className="aspect-square relative bg-gray-100 rounded-md overflow-hidden cursor-pointer hover:opacity-75 transition-opacity"
+                  onClick={() => carouselApi?.scrollTo(index)}
+                  className="aspect-square relative bg-gray-100 overflow-hidden cursor-pointer hover:opacity-75 transition-opacity"
+                  aria-label={`Voir l'image ${index + 1}`}
                 >
                   <Image
                     src={image}
@@ -218,7 +229,7 @@ export default function Page() {
                     fill
                     className="object-cover"
                   />
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -229,7 +240,7 @@ export default function Page() {
               {/* En-tête avec titre et actions */}
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
-                  <h1 className="text-2xl font-semibold text-gray-900">
+                  <h1 className="text-2xl text-gray-900 uppercase">
                     {product.nom}
                   </h1>
                 </div>
@@ -260,19 +271,6 @@ export default function Page() {
                 </div>
               </div>
 
-              {/* Collections/Tags */}
-              <div className="flex flex-wrap gap-2 mb-2">
-                {product.collections.map((collection) => (
-                  <Badge
-                    key={collection.id}
-                    variant="secondary"
-                    className="bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  >
-                    {collection.collection.nom}
-                  </Badge>
-                ))}
-              </div>
-
               {/* Prix */}
               <div>
                 <div className="flex items-center space-x-4 mt-4">
@@ -281,10 +279,10 @@ export default function Page() {
                       <span className="text-3xl">
                         {product.prixReduit.toFixed(2)}€
                       </span>
-                      <span className="text-xl text-gray-500 line-through">
+                      <span className="text-lg font-light text-gray-500 line-through">
                         {product.prix.toFixed(2)}€
                       </span>
-                      <Badge variant="destructive" className="bg-red-500">
+                      <Badge variant="destructive" className="bg-[#EA445A]">
                         -
                         {Math.round(
                           ((product.prix - product.prixReduit) / product.prix) *
@@ -294,7 +292,7 @@ export default function Page() {
                       </Badge>
                     </>
                   ) : (
-                    <span className="text-3xl text-gray-900">
+                    <span className="text-2xl text-gray-900 font-bold">
                       {getVariantPrice().toFixed(2)}€
                     </span>
                   )}
@@ -329,7 +327,7 @@ export default function Page() {
                             className="sr-only"
                           />
                           <div
-                            className={`px-3 py-2 border rounded-md text-sm font-medium transition-all ${
+                            className={`px-3 py-2 border text-sm font-medium transition-all ${
                               selectedSize === taille
                                 ? "border-black bg-black text-white"
                                 : "border-gray-300 hover:border-black"
@@ -436,7 +434,7 @@ export default function Page() {
                   Quantité
                 </label>
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center border border-gray-300 rounded-lg w-fit">
+                  <div className="flex items-center border border-gray-300 w-fit">
                     <Button
                       variant="ghost"
                       size="sm"
@@ -458,38 +456,15 @@ export default function Page() {
                       <IconPlus className="h-3 w-3" />
                     </Button>
                   </div>
-
-                  {/* Stock */}
-                  {selectedVariant && (
-                    <div className="flex items-center">
-                      {selectedVariant.quantity > 0 ? (
-                        <div className="flex items-center text-green-600">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                          <span className="text-sm font-medium">
-                            En stock ({selectedVariant.quantity} disponible
-                            {selectedVariant.quantity > 1 ? "s" : ""})
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center text-red-600">
-                          <div className="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
-                          <span className="text-sm font-medium">
-                            Rupture de stock
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
 
               {/* Bouton d'ajout au panier */}
               <Button
-                className="w-full h-14 text-lg font-semibold bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                disabled={selectedVariant?.quantity === 0}
+                className="w-full h-12 border border-black bg-black text-white hover:bg-white hover:text-black rounded-full transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black disabled:hover:text-white disabled:hover:scale-100"
+                disabled={selectedVariant?.stockZeroEnabled === true}
                 onClick={() => {
                   if (product) {
-                    const maxQuantity = getMaxQuantity();
                     addItem({
                       productId: product.id!,
                       nom: product.nom,
@@ -503,7 +478,6 @@ export default function Page() {
                       taille: selectedSize,
                       couleur: selectedColor,
                       variantId: selectedVariant?.id,
-                      maxQuantity: maxQuantity,
                     });
                     toast.success("Produit ajouté au panier", {
                       position: "top-center",
@@ -511,45 +485,19 @@ export default function Page() {
                   }
                 }}
               >
-                <IconShoppingCart className="h-6 w-6 mr-3" />
-                Ajouter au panier
+                {selectedVariant?.stockZeroEnabled
+                  ? "Rupture de stock"
+                  : "Ajouter au panier"}
               </Button>
+              {selectedVariant?.stockZeroEnabled && (
+                <p className="text-sm text-red-500 text-center">
+                  Ce produit n&apos;est plus disponible dans cette taille pour le moment.
+                </p>
+              )}
             </div>
 
             {/* Avantages produit */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center p-4 rounded-lg bg-gray-50">
-                <IconTruck className="h-6 w-6 mr-3" />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Livraison rapide
-                  </p>
-                  <p className="text-xs text-gray-600">Expédition sous 24h</p>
-                </div>
-              </div>
-              <div className="flex items-center p-4 rounded-lg bg-gray-50">
-                <IconShieldCheck className="h-6 w-6 mr-3" />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Garantie qualité
-                  </p>
-                  <p className="text-xs text-gray-600">
-                    Produit selectionné avec soin
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center p-4 rounded-lg bg-gray-50">
-                <IconHeadset className="h-6 w-6 mr-3" />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Support client
-                  </p>
-                  <p className="text-xs text-gray-600">
-                    Disponible 7j/7 par chat
-                  </p>
-                </div>
-              </div>
-            </div>
+
             {/* Description */}
             {product.description && (
               <div className="bg-white border border-gray-200 rounded-lg p-6">
@@ -562,6 +510,34 @@ export default function Page() {
                 </p>
               </div>
             )}
+
+            {/* Accordion Qualité et Livraison */}
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="qualite">
+                <AccordionTrigger className="text-base font-medium">
+                  <div className="flex items-center gap-2">Qualité</div>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  <p>
+                    Nous choisissons ce qui se fait de mieux. Notre engagement :
+                    offrir une expérience inspirée des boutiques de luxe, sans
+                    en payer le prix.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="livraison">
+                <AccordionTrigger className="text-base font-medium">
+                  <div className="flex items-center gap-2">Livraison</div>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  <ul className="space-y-2">
+                    <li>• Livraison standard : 3-5 jours ouvrés</li>
+                    <li>• Livraison en points relais : Mondial Relay</li>
+                    <li>• Livraison à domicile : Colissimo</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
             {/* Section rappel des réductions */}
             <DiscountReminder />

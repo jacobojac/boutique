@@ -18,7 +18,7 @@ export default function FeaturedProducts() {
   const [isLoading, setIsLoading] = useState(true);
   const { handleImageError, isImageFailed } = useImageError();
 
-  const collection = "nouveautes";
+  const collection = "best-sellers";
 
   useEffect(() => {
     const getFeaturedProducts = async () => {
@@ -70,166 +70,127 @@ export default function FeaturedProducts() {
     );
   }
 
-  if (!products || products.length === 0) {
-    return (
-      <section className="py-20 bg-white">
-        <div className="text-center">
-          <div className="inline-flex items-center px-4 py-2 border border-black/20 text-black text-sm font-medium mb-6">
-            NOUVEAUTÉS
-          </div>
-          <h2 className="text-4xl md:text-5xl font-light text-black mb-4 tracking-wide">
-            Nos dernières
-            <span className="block font-medium">nouveautés</span>
-          </h2>
-          <p className="text-lg text-gray-600 font-light">
-            Aucun produit disponible pour le moment.
-          </p>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="pt-16 pb-8 md:pb-16 bg-white">
+    <section id="featured-products" className="pt-16 pb-8 md:pb-16 bg-white">
       <div className="mb-16">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="inline-flex items-center px-4 py-2 border border-black/20 text-black text-sm font-medium mb-6">
-            NOUVEAUTÉS
+        <div className="text-center mb-12 bg-black flex justify-center py-20">
+          <h2 className="text-white text-3x md:text-4xl font-semibold tracking-wide">
+            BEST SELLERS
           </h2>
-          {/* <h2 className="text-3xl md:text-4xl font-light text-black mb-4 tracking-wide">
-            Nos dernières nouveautés
-          </h2> */}
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-            Découvrez notre sélection exclusive des dernières tendances
-          </p>
         </div>
 
-        {/* Navigation Controls */}
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex space-x-3">
-            <button
-              type="button"
-              onClick={scrollPrev}
-              className="p-3 border border-black/20 hover:border-black hover:bg-black hover:text-white transition-all duration-300"
-              aria-label="Produit précédent"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={scrollNext}
-              className="p-3 border border-black/20 hover:border-black hover:bg-black hover:text-white transition-all duration-300"
-              aria-label="Produit suivant"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Products Carousel */}
-        <Carousel
-          setApi={setApi}
-          className="w-full"
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-        >
-          <CarouselContent className="-ml-3 md:-ml-6">
-            {products
-              .filter((product: TypeProduct) => product.actif === true)
-              .map((product: TypeProduct) => (
-                <CarouselItem
-                  key={product.id}
-                  className="pl-3 md:pl-6 basis-1/2 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <Link
-                    href={`/produits/${product.slug}`}
-                    className="block group"
+        <div className="max-w-7xl mx-auto sm:px-6">
+          {/* Products Carousel */}
+          <Carousel
+            setApi={setApi}
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="-ml-3 md:-ml-6">
+              {products
+                .filter((product: TypeProduct) => product.actif === true)
+                .map((product: TypeProduct) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="pl-3 md:pl-6 basis-1/2 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                   >
-                    <div className="relative">
-                      {/* Product Image */}
-                      <div className="aspect-[4/5] overflow-hidden bg-gray-100 mb-3 relative border border-gray-200 group-hover:border-black transition-colors duration-300">
-                        {product.images &&
-                        product.images.length > 0 &&
-                        product.images[0] &&
-                        !isImageFailed(product.images[0]) ? (
-                          <Image
-                            src={product.images[0]}
-                            alt={product.nom}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            quality={75}
-                            onError={() => handleImageError(product.images[0])}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                            <span className="text-gray-400 text-sm font-light">
-                              {product.images[0] &&
-                              isImageFailed(product.images[0])
-                                ? "Image non disponible"
-                                : "Aucune image"}
-                            </span>
-                          </div>
-                        )}
-                        {/* Sale Badge */}
-                        {product.prixReduit && product.prixReduit > 0 && (
-                          <div className="absolute top-4 left-4 z-10">
-                            <span className="bg-black text-white px-3 py-1 text-xs font-medium">
-                              PROMO
-                            </span>
-                          </div>
-                        )}
-
-                        {/* New Badge */}
-                        {product.collections?.some(
-                          (pc) =>
-                            pc.collection.nom.toLowerCase() === "nouveautés"
-                        ) && (
-                          <div
-                            className={`absolute top-4 z-10 ${
-                              product.prixReduit && product.prixReduit > 0
-                                ? "right-4"
-                                : "left-4"
-                            }`}
-                          >
-                            <span className="bg-green-600 text-white px-3 py-1 text-xs font-medium">
-                              NOUVEAU
-                            </span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="space-y-2">
-                        <h3 className="text-base font-medium text-black group-hover:text-gray-600 transition-colors duration-300">
-                          {product.nom}
-                        </h3>
-                        <div className="flex items-center space-x-2">
-                          {product.prixReduit && product.prixReduit > 0 ? (
-                            <>
-                              <span className="text-lg font-bold text-black">
-                                {product.prixReduit.toFixed(2)}€
-                              </span>
-                              <span className="text-sm text-gray-500 line-through font-light">
-                                {product.prix.toFixed(2)}€
-                              </span>
-                            </>
+                    <Link
+                      href={`/produits/${product.slug}`}
+                      className="block group"
+                    >
+                      <div className="relative">
+                        {/* Product Image */}
+                        <div className="aspect-[4/5] overflow-hidden bg-gray-100 mb-3 relative border border-gray-200 group-hover:border-black transition-colors duration-300">
+                          {product.images &&
+                          product.images.length > 0 &&
+                          product.images[0] &&
+                          !isImageFailed(product.images[0]) ? (
+                            <Image
+                              src={product.images[0]}
+                              alt={product.nom}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              quality={75}
+                              onError={() =>
+                                handleImageError(product.images[0])
+                              }
+                            />
                           ) : (
-                            <span className="text-lg font-medium text-black">
-                              {product.prix.toFixed(2)}€
-                            </span>
+                            <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                              <span className="text-gray-400 text-sm font-light">
+                                {product.images[0] &&
+                                isImageFailed(product.images[0])
+                                  ? "Image non disponible"
+                                  : "Aucune image"}
+                              </span>
+                            </div>
+                          )}
+                          {/* Sale Badge */}
+                          {product.prixReduit && product.prixReduit > 0 && (
+                            <div className="absolute top-4 left-4 z-10">
+                              <span className="bg-black text-white px-3 py-1 text-xs font-medium">
+                                PROMO
+                              </span>
+                            </div>
                           )}
                         </div>
+
+                        {/* Product Info */}
+                        <div className="space-y-2">
+                          <h3 className="text-base font-medium text-black group-hover:text-gray-600 transition-colors duration-300">
+                            {product.nom}
+                          </h3>
+                          <div className="flex items-center space-x-2">
+                            {product.prixReduit && product.prixReduit > 0 ? (
+                              <>
+                                <span className="text-lg font-bold text-black">
+                                  {product.prixReduit.toFixed(2)}€
+                                </span>
+                                <span className="text-sm text-gray-500 line-through font-light">
+                                  {product.prix.toFixed(2)}€
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-lg font-bold text-black">
+                                {product.prix.toFixed(2)}€
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </CarouselItem>
-              ))}
-          </CarouselContent>
-        </Carousel>
+                    </Link>
+                  </CarouselItem>
+                ))}
+            </CarouselContent>
+          </Carousel>
+
+          {/* Navigation Controls */}
+          <div className="flex justify-center items-center mt-8">
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={scrollPrev}
+                className="p-3 border border-black/20 hover:border-black hover:bg-black hover:text-white transition-all duration-300"
+                aria-label="Produit précédent"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={scrollNext}
+                className="p-3 border border-black/20 hover:border-black hover:bg-black hover:text-white transition-all duration-300"
+                aria-label="Produit suivant"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -16,7 +16,7 @@ import {
   IconCheck,
   IconMinus,
   IconPlus,
-  IconShoppingCart,
+  IconShoppingBag,
   IconTag,
   IconTrash,
   IconX,
@@ -222,14 +222,15 @@ export const CartDrawer = () => {
     >
       <DrawerTrigger asChild>
         <Button
-          className="relative rounded-full"
+          variant="ghost"
+          className="relative rounded-full hover:bg-transparent cursor-pointer h-8 w-8 flex items-center justify-center p-0"
           size="icon"
           onClick={openCart}
         >
-          <IconShoppingCart className="h-5 w-5" />
+          <IconShoppingBag className="h-7 w-7" stroke={1} />
           {hasHydrated && getTotalItems() > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {getTotalItems()}
+            <span className="absolute -top-2 -right-2 bg-[#EA445A] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {getTotalItems() > 9 ? "9+" : getTotalItems()}
             </span>
           )}
         </Button>
@@ -254,7 +255,7 @@ export const CartDrawer = () => {
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-gray-500">
-              <IconShoppingCart className="h-16 w-16 mb-4" />
+              <IconShoppingBag className="h-16 w-16 mb-4" />
               <p>Votre panier est vide</p>
             </div>
           ) : (
