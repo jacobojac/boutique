@@ -1,13 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -25,13 +23,12 @@ import { useCartStore } from "@/store/cart-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   IconBrandWhatsapp,
-  IconCheck,
   IconCircleCheck,
   IconChevronDown,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -52,16 +49,14 @@ const customerSchema = z.object({
 type CustomerFormValues = z.infer<typeof customerSchema>;
 
 function OrderConfirmationContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const orderNumberParam = searchParams.get("orderNumber");
 
   const { items, clearCart } = useCartStore();
-  const { createOrder, isLoading: orderLoading, error: orderError } = useOrder();
+  const { createOrder } = useOrder();
 
   const [orderNumber, setOrderNumber] = useState("");
   const [formCompleted, setFormCompleted] = useState(false);
-  const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
   const [showOrderSummary, setShowOrderSummary] = useState(false);
 
@@ -108,11 +103,11 @@ function OrderConfirmationContent() {
   }, [form]);
 
   const getFinalTotalPrice = useCallback(() => {
-    let total = getTotalPrice() + getDeliveryFee();
+    const total = getTotalPrice() + getDeliveryFee();
     return Math.max(0, total);
   }, [getTotalPrice, getDeliveryFee]);
 
-  const onSubmitCustomerInfo = async (data: CustomerFormValues) => {
+  const onSubmitCustomerInfo = async () => {
     setFormCompleted(true);
     toast.success("Informations confirmées");
   };
@@ -178,7 +173,6 @@ function OrderConfirmationContent() {
       );
 
       if (orderData) {
-        setOrderConfirmed(true);
         const message = formatOrderMessage();
         const whatsappUrl = `https://wa.me/+33757837110?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, "_blank");
