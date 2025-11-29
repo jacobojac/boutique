@@ -36,7 +36,7 @@ export default function CustomerExperience() {
           {features.map((feature, index) => (
             <div key={index} className="group text-center">
               <div className="flex justify-center mb-4">
-                <div className="p-6 rounded-full bg-tertiory">
+                <div className="p-4 rounded-full bg-tertiory">
                   {feature.icon}
                 </div>
               </div>

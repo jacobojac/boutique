@@ -175,22 +175,22 @@ export default function Page() {
                       />
 
                       {/* Only show badges on the first image */}
-                      {index === 0 && (
+                      {index === 0 ? (
                         <>
                           {/* Sale Badge */}
-                          {product.prixReduit && product.prixReduit > 0 && (
+                          {product.prixReduit && product.prixReduit > 0 ? (
                             <div className="absolute top-4 left-4 z-10">
                               <span className="bg-black text-white px-3 py-1 text-sm font-medium">
                                 PROMO
                               </span>
                             </div>
-                          )}
+                          ) : null}
 
                           {/* New Badge */}
                           {product.collections?.some(
                             (pc) =>
                               pc.collection.nom.toLowerCase() === "best sellers"
-                          ) && (
+                          ) ? (
                             <div
                               className={`absolute top-4 z-10 ${
                                 product.prixReduit && product.prixReduit > 0
@@ -198,13 +198,13 @@ export default function Page() {
                                   : "left-4"
                               }`}
                             >
-                              <span className="bg-green-600 text-white px-3 py-1 text-sm font-medium">
+                              <span className="bg-[#EA445A] text-white px-3 py-1 text-sm font-medium">
                                 BEST SELLER
                               </span>
                             </div>
-                          )}
+                          ) : null}
                         </>
-                      )}
+                      ) : null}
                     </div>
                   </CarouselItem>
                 ))}
@@ -301,7 +301,7 @@ export default function Page() {
             </div>
 
             {/* Sélection des variantes */}
-            {product.variants && product.variants.length > 0 && (
+            {product.variants && product.variants.length > 0 ? (
               <div className="space-y-4">
                 {/* Taille */}
                 {getUniqueValues("taille").length > 0 && (
@@ -424,7 +424,7 @@ export default function Page() {
                   </div>
                 )}
               </div>
-            )}
+            ) : null}
 
             {/* Quantité et Actions */}
             <div className="space-y-6 mt-10">
@@ -491,7 +491,8 @@ export default function Page() {
               </Button>
               {selectedVariant?.stockZeroEnabled && (
                 <p className="text-sm text-red-500 text-center">
-                  Ce produit n&apos;est plus disponible dans cette taille pour le moment.
+                  Ce produit n&apos;est plus disponible dans cette taille pour
+                  le moment.
                 </p>
               )}
             </div>

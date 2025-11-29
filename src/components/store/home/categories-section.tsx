@@ -68,7 +68,7 @@ export default function CategoriesSection() {
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {categories.map((category, index) => (
-            <div className="col-span-1 flex justify-between" key={index}>
+            <div className="group col-span-1 flex justify-between" key={index}>
               {/* Image Container */}
               <div className="w-1/2">
                 <div className="relative h-80 overflow-hidden">
@@ -92,14 +92,14 @@ export default function CategoriesSection() {
                   <h3 className="text-4xl font-semibold text-black mb-4">
                     {category.title}
                   </h3>
-                  <Button
-                    size="sm"
-                    className="w-full text-white bg-black hover:text-white hover:px-4 transition-all duration-300 px-0"
-                  >
-                    <Link href={`/${category.link}`} className="font-light">
-                      {category.buttonText}
-                    </Link>
-                  </Button>
+                  <Link href={`/${category.link}`} className="block w-full">
+                    <Button
+                      size="sm"
+                      className="w-full text-white bg-black hover:bg-gray-800 hover:text-white transition-all duration-300"
+                    >
+                      <span className="font-light">{category.buttonText}</span>
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

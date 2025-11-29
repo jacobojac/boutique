@@ -65,7 +65,7 @@ export default function Hero() {
                   <a href="#featured-products" className="group">
                     <Button
                       size="lg"
-                      className="bg-black text-white hover:bg-gray-100 font-medium px-4 py-2 transition-all duration-500 group-hover:scale-105 shadow-2xl hover:shadow-white/20"
+                      className="bg-black text-white hover:bg-gray-100 hover:text-black font-medium px-4 py-2 transition-all duration-500 group-hover:scale-105 shadow-2xl hover:shadow-white/20"
                     >
                       {config.homepage_hero_button_text}
                       <ChevronRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />

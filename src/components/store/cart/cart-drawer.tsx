@@ -261,8 +261,8 @@ export const CartDrawer = () => {
           ) : (
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4 p-4 border rounded-lg">
-                  <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+                <div key={item.id} className="flex gap-4 p-4 border rounded-sm">
+                  <div className="w-16 h-16 bg-gray-100 overflow-hidden flex-shrink-0">
                     <Image
                       src={item.image}
                       alt={item.nom}

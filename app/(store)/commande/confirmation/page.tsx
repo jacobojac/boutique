@@ -23,8 +23,8 @@ import { useCartStore } from "@/store/cart-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   IconBrandWhatsapp,
-  IconCircleCheck,
   IconChevronDown,
+  IconCircleCheck,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -123,9 +123,10 @@ function OrderConfirmationContent() {
     message += `Adresse: ${customerData.street}, ${customerData.postalCode} ${customerData.city}, ${customerData.country}\n\n`;
 
     message += `🚚 *Mode de livraison:*\n`;
-    message += customerData.deliveryMethod === "parcel-france-relais"
-      ? "Point relais - 5,90€\n\n"
-      : "Livraison à domicile - 15,00€\n\n";
+    message +=
+      customerData.deliveryMethod === "parcel-france-relais"
+        ? "Point relais - 5,90€\n\n"
+        : "Livraison à domicile - 15,00€\n\n";
 
     message += `📦 *Articles:*\n`;
     items.forEach((item, index) => {
@@ -142,7 +143,14 @@ function OrderConfirmationContent() {
     message += `*Total: ${getFinalTotalPrice().toFixed(2)}€*`;
 
     return message;
-  }, [form, items, orderNumber, getTotalPrice, getDeliveryFee, getFinalTotalPrice]);
+  }, [
+    form,
+    items,
+    orderNumber,
+    getTotalPrice,
+    getDeliveryFee,
+    getFinalTotalPrice,
+  ]);
 
   const handleWhatsAppClick = async () => {
     if (!formCompleted) {
@@ -174,7 +182,9 @@ function OrderConfirmationContent() {
 
       if (orderData) {
         const message = formatOrderMessage();
-        const whatsappUrl = `https://wa.me/+33757837110?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/+33757837110?text=${encodeURIComponent(
+          message
+        )}`;
         window.open(whatsappUrl, "_blank");
 
         setTimeout(() => {
@@ -242,8 +252,8 @@ function OrderConfirmationContent() {
 
             {/* Résumé mobile expansible */}
             {showOrderSummary && (
-              <div className="lg:hidden mb-6 p-4 bg-gray-50 rounded-lg">
-                <div className="space-y-4">
+              <div className="lg:hidden mb-6 p-4 bg-gray-50">
+                <div className="space-y-4 mb-4">
                   {items.map((item) => (
                     <div key={item.id} className="flex gap-3">
                       <div className="relative flex-shrink-0">
@@ -253,7 +263,7 @@ function OrderConfirmationContent() {
                             alt={item.nom}
                             width={64}
                             height={64}
-                            className="rounded-lg object-cover"
+                            className="object-cover"
                           />
                         )}
                         <span className="absolute -top-2 -right-2 bg-gray-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
@@ -273,13 +283,47 @@ function OrderConfirmationContent() {
                     </div>
                   ))}
                 </div>
+
+                {/* Divider */}
+                <div className="border-t border-gray-200 my-4"></div>
+
+                {/* Totaux */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Sous-total</span>
+                    <span className="font-medium">
+                      {getTotalPrice().toFixed(2)}€
+                    </span>
+                  </div>
+
+                  {getDeliveryFee() > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Livraison</span>
+                      <span className="font-medium">
+                        {getDeliveryFee().toFixed(2)}€
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="border-t border-gray-200 pt-2 mt-2">
+                    <div className="flex justify-between">
+                      <span className="text-base font-semibold">Total</span>
+                      <span className="text-lg font-bold">
+                        {getFinalTotalPrice().toFixed(2)}€
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
             {/* Formulaire */}
             {!formCompleted ? (
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmitCustomerInfo)} className="space-y-6">
+                <form
+                  onSubmit={form.handleSubmit(onSubmitCustomerInfo)}
+                  className="space-y-6"
+                >
                   <div>
                     <h2 className="text-lg font-semibold mb-4">Coordonnées</h2>
                     <FormField
@@ -311,7 +355,11 @@ function OrderConfirmationContent() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Prénom" className="h-12" {...field} />
+                                <Input
+                                  placeholder="Prénom"
+                                  className="h-12"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -323,7 +371,11 @@ function OrderConfirmationContent() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Nom" className="h-12" {...field} />
+                                <Input
+                                  placeholder="Nom"
+                                  className="h-12"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -337,7 +389,11 @@ function OrderConfirmationContent() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Adresse" className="h-12" {...field} />
+                              <Input
+                                placeholder="Adresse"
+                                className="h-12"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -351,7 +407,11 @@ function OrderConfirmationContent() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Code postal" className="h-12" {...field} />
+                                <Input
+                                  placeholder="Code postal"
+                                  className="h-12"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -363,7 +423,11 @@ function OrderConfirmationContent() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Ville" className="h-12" {...field} />
+                                <Input
+                                  placeholder="Ville"
+                                  className="h-12"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -376,7 +440,10 @@ function OrderConfirmationContent() {
                         name="country"
                         render={({ field }) => (
                           <FormItem>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
                               <FormControl>
                                 <SelectTrigger className="h-12">
                                   <SelectValue placeholder="Pays" />
@@ -384,7 +451,9 @@ function OrderConfirmationContent() {
                               </FormControl>
                               <SelectContent>
                                 <SelectItem value="France">France</SelectItem>
-                                <SelectItem value="Belgique">Belgique</SelectItem>
+                                <SelectItem value="Belgique">
+                                  Belgique
+                                </SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -398,7 +467,12 @@ function OrderConfirmationContent() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Téléphone" type="tel" className="h-12" {...field} />
+                              <Input
+                                placeholder="Téléphone"
+                                type="tel"
+                                className="h-12"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -408,7 +482,9 @@ function OrderConfirmationContent() {
                   </div>
 
                   <div>
-                    <h2 className="text-lg font-semibold mb-4">Mode de livraison</h2>
+                    <h2 className="text-lg font-semibold mb-4">
+                      Mode de livraison
+                    </h2>
                     <FormField
                       control={form.control}
                       name="deliveryMethod"
@@ -433,7 +509,9 @@ function OrderConfirmationContent() {
                                     value="parcel-france-relais"
                                     id="parcel-france-relais"
                                   />
-                                  <span className="font-medium">Point relais</span>
+                                  <span className="font-medium">
+                                    Point relais
+                                  </span>
                                 </div>
                                 <span className="font-semibold">5,90€</span>
                               </Label>
@@ -451,7 +529,9 @@ function OrderConfirmationContent() {
                                     value="parcel-france-home"
                                     id="parcel-france-home"
                                   />
-                                  <span className="font-medium">Livraison à domicile</span>
+                                  <span className="font-medium">
+                                    Livraison à domicile
+                                  </span>
                                 </div>
                                 <span className="font-semibold">15,00€</span>
                               </Label>
@@ -514,7 +594,7 @@ function OrderConfirmationContent() {
                           alt={item.nom}
                           width={64}
                           height={64}
-                          className="rounded-lg object-cover border border-gray-200"
+                          className="object-cover border border-gray-200"
                         />
                       )}
                       <span className="absolute -top-2 -right-2 bg-gray-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
@@ -522,7 +602,9 @@ function OrderConfirmationContent() {
                       </span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">{item.nom}</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {item.nom}
+                      </p>
                       <p className="text-xs text-gray-500">
                         {item.taille && `${item.taille}`}
                         {item.couleur && ` • ${item.couleur}`}
@@ -542,13 +624,17 @@ function OrderConfirmationContent() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Sous-total</span>
-                  <span className="font-medium">{getTotalPrice().toFixed(2)}€</span>
+                  <span className="font-medium">
+                    {getTotalPrice().toFixed(2)}€
+                  </span>
                 </div>
 
                 {getDeliveryFee() > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Livraison</span>
-                    <span className="font-medium">{getDeliveryFee().toFixed(2)}€</span>
+                    <span className="font-medium">
+                      {getDeliveryFee().toFixed(2)}€
+                    </span>
                   </div>
                 )}
               </div>
