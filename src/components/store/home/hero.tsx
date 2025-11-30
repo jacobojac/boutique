@@ -31,14 +31,14 @@ export default function Hero() {
             quality={95}
           />
           {/* Multi-layer overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/10"></div>
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30"></div> */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-transparent"></div>
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent"></div>
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30"></div> */}
         </div>
 
         {/* Geometric elements for visual interest */}
-        <div className="absolute top-1/4 right-20 w-1 h-32 bg-white/20 rotate-12 hidden lg:block"></div>
-        <div className="absolute bottom-1/3 right-32 w-1 h-20 bg-white/10 -rotate-12 hidden lg:block"></div>
+        {/* <div className="absolute top-1/4 right-20 w-1 h-32 bg-white/20 rotate-12 hidden lg:block"></div>
+        <div className="absolute bottom-1/3 right-32 w-1 h-20 bg-white/10 -rotate-12 hidden lg:block"></div> */}
 
         {/* Content */}
         <div className="relative z-10 h-full flex items-center w-full md:w-2/3 lg:w-1/2">
