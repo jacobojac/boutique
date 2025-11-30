@@ -49,21 +49,36 @@ export default function FeaturedProducts() {
 
   if (isLoading) {
     return (
-      <section className="py-6 bg-white">
-        <div className="text-center">
-          <div className="inline-flex items-center px-4 py-2 border border-black/20 text-black text-sm font-medium mb-6">
-            NOUVEAUTÉS
+      <section className="pt-8 pb-20 bg-white">
+        {/* Section Header Skeleton */}
+        <div className="mb-6 text-center">
+          <div className="bg-black w-full py-6 mb-4">
+            <div className="h-10 bg-gray-700 rounded w-64 mx-auto"></div>
           </div>
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-8"></div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="space-y-4">
-                  <div className="aspect-[4/5] bg-gray-200 rounded"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                </div>
-              ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Products Carousel Skeleton */}
+          <div className="relative">
+            <div className="animate-pulse">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="space-y-4">
+                    <div className="aspect-square bg-gray-200 rounded"></div>
+                    <div className="space-y-2">
+                      <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+                      <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Controls Skeleton */}
+            <div className="flex justify-center items-center gap-4 mt-12">
+              <div className="w-11 h-11 border border-gray-200 bg-gray-100"></div>
+              <div className="w-11 h-11 border border-gray-200 bg-gray-100"></div>
             </div>
           </div>
         </div>

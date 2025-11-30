@@ -11,9 +11,9 @@ export default function Home() {
       <Hero />
       <CategoriesSection />
       <FeaturedProducts />
-      <CustomerExperience />
       <PromoSection />
       <ImageCarousel />
+      <CustomerExperience />
     </>
   );
 }
