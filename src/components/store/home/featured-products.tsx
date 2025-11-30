@@ -72,7 +72,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section id="featured-products" className="py-20 bg-white">
+    <section id="featured-products" className="pt-8 pb-20 bg-white">
       {/* Section Header */}
       <div className="mb-6 text-center">
         <div className="bg-black w-full py-6 mb-4">
