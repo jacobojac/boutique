@@ -48,17 +48,17 @@ export const NavBarMobile = ({ menuHomme, menuFemme }: NavBarMobileProps) => {
               </Link>
             </div>
 
-            {/* Section Femme */}
-            {menuFemme.length > 0 && (
+            {/* Section Homme */}
+            {menuHomme.length > 0 && (
               <div className="space-y-3">
                 <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
-                  Pour Elle
+                  Homme
                 </h3>
                 <ul className="space-y-2 pl-4">
-                  {menuFemme.map((menu) => (
+                  {menuHomme.map((menu) => (
                     <li key={menu.id} onClick={() => setOpenMenu(false)}>
                       <Link
-                        href={`/collections/${menu.collectionSlug}`}
+                        href={`/homme/${menu.collectionSlug}`}
                         className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
                       >
                         {menu.collectionNom}
@@ -69,17 +69,17 @@ export const NavBarMobile = ({ menuHomme, menuFemme }: NavBarMobileProps) => {
               </div>
             )}
 
-            {/* Section Homme */}
-            {menuHomme.length > 0 && (
+            {/* Section Femme */}
+            {menuFemme.length > 0 && (
               <div className="space-y-3">
                 <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">
-                  Pour Lui
+                  Femme
                 </h3>
                 <ul className="space-y-2 pl-4">
-                  {menuHomme.map((menu) => (
+                  {menuFemme.map((menu) => (
                     <li key={menu.id} onClick={() => setOpenMenu(false)}>
                       <Link
-                        href={`/collections/${menu.collectionSlug}`}
+                        href={`/femme/${menu.collectionSlug}`}
                         className="text-base text-gray-700 hover:text-gray-900 hover:font-medium transition-colors block py-1"
                       >
                         {menu.collectionNom}
