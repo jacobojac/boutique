@@ -180,7 +180,7 @@ export default function Page() {
                           {/* Sale Badge */}
                           {product.prixReduit && product.prixReduit > 0 ? (
                             <div className="absolute top-4 left-4 z-10">
-                              <span className="bg-black text-white px-3 py-1 text-sm font-medium">
+                              <span className="bg-gray-700 text-white px-3 py-1 text-sm font-medium">
                                 PROMO
                               </span>
                             </div>
@@ -198,7 +198,7 @@ export default function Page() {
                                   : "left-4"
                               }`}
                             >
-                              <span className="bg-[#EA445A] text-white px-3 py-1 text-sm font-medium">
+                              <span className="bg-black text-white px-3 py-1 text-sm font-medium">
                                 BEST SELLER
                               </span>
                             </div>
@@ -282,7 +282,10 @@ export default function Page() {
                       <span className="text-lg font-light text-gray-500 line-through">
                         {product.prix.toFixed(2)}€
                       </span>
-                      <Badge variant="destructive" className="bg-[#EA445A]">
+                      <Badge
+                        variant="destructive"
+                        className="bg-gray-700 text-white"
+                      >
                         -
                         {Math.round(
                           ((product.prix - product.prixReduit) / product.prix) *

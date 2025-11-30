@@ -75,8 +75,6 @@ export default function FeaturedProducts() {
       {/* Section Header */}
       <div className="mb-16 text-center">
         <div className="bg-black w-full py-6 mb-4">
-          <span className="text-white">Maroquinerie</span>
-          <div className="w-16 h-0.5 bg-[#EA445A] mx-auto mb-2 mt-1"></div>
           <h2 className="text-4xl md:text-5xl font-light tracking-widest text-white">
             BEST SELLERS
           </h2>
@@ -113,7 +111,7 @@ export default function FeaturedProducts() {
                           product.images.length > 0 &&
                           product.images[0] &&
                           !isImageFailed(product.images[0]) ? (
-                            <>
+                            <div>
                               {/* Main Image */}
                               <Image
                                 src={product.images[0]}
@@ -141,7 +139,7 @@ export default function FeaturedProducts() {
                                   }
                                 />
                               ) : null}
-                            </>
+                            </div>
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-gray-100">
                               <span className="text-gray-400 text-sm font-light">
@@ -155,7 +153,7 @@ export default function FeaturedProducts() {
                           {/* Sale Badge */}
                           {product.prixReduit && product.prixReduit > 0 ? (
                             <div className="absolute top-4 left-4 z-10">
-                              <span className="bg-[#EA445A] text-white px-2.5 py-1 text-[10px] font-light tracking-wider">
+                              <span className="bg-black text-white px-2.5 py-1 text-[10px] font-light tracking-wider">
                                 PROMO
                               </span>
                             </div>

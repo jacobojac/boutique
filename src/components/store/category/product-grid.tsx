@@ -39,9 +39,7 @@ function ProductCard({ product }: { product: TypeProduct }) {
     <div className="group cursor-pointer">
       <Link href={`/produits/${product.slug}`}>
         <div className="aspect-square overflow-hidden bg-gray-100 mb-4 relative">
-          {product.images &&
-          product.images.length > 0 &&
-          product.images[0] ? (
+          {product.images && product.images.length > 0 && product.images[0] ? (
             <>
               {!imageLoaded && (
                 <Skeleton className="absolute inset-0 w-full h-full rounded-none" />
@@ -62,7 +60,7 @@ function ProductCard({ product }: { product: TypeProduct }) {
               {/* Sale Badge */}
               {product.prixReduit && product.prixReduit > 0 ? (
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-red-600 text-white px-3 py-1 text-xs font-medium">
+                  <span className="bg-gray-700 text-white px-3 py-1 text-xs font-medium">
                     PROMO
                   </span>
                 </div>
@@ -79,7 +77,7 @@ function ProductCard({ product }: { product: TypeProduct }) {
                       : "left-4"
                   }`}
                 >
-                  <span className="bg-[#EA445A] text-white px-3 py-1 text-xs font-medium">
+                  <span className="bg-black text-white px-3 py-1 text-xs font-medium">
                     BEST SELLER
                   </span>
                 </div>

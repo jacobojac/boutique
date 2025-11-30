@@ -229,7 +229,7 @@ export const CartDrawer = () => {
         >
           <IconShoppingBag className="h-7 w-7" stroke={1} />
           {hasHydrated && getTotalItems() > 0 && (
-            <span className="absolute -top-2 -right-2 bg-[#EA445A] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            <span className="absolute -top-2 -right-2 bg-black text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
               {getTotalItems() > 9 ? "9+" : getTotalItems()}
             </span>
           )}

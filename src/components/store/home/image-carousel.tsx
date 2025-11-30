@@ -10,12 +10,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const images = [
+  "/images/carousel-images/1764452840043-3clk89a43go.png",
+  "/images/carousel-images/1764449555607-oyfqzcr2zm8.png",
   "/images/carousel-images/1764273331578-r82taekwo9s.png",
-  "/images/carousel-images/1764273523272-j1jhytnash.png",
-  "/images/carousel-images/0b427dab0bb70a33ef68e0c22b81a8ef_1764082904_zygfly7p.png",
-  "/images/carousel-images/20455db6f4e7b21df259d0db237118d3_1763904367.png",
   "/images/carousel-images/1764082678435-cuznu76ului.png",
-  "/images/carousel-images/20455db6f4e7b21df259d0db237118d3_1763904367.png",
+  "/images/carousel-images/b3957f10-047f-4788-8ef1-964061c3880c.png",
+  "/images/carousel-images/17642733423272-j1jhytnash.jpeg",
+  "/images/carousel-images/1764273523272-j1jhytnash.png",
+  "/images/carousel-images/a0733d9b-0adb-403e-a6df-ebd1dbc5282f_0.png",
 ];
 
 export default function ImageCarousel() {
