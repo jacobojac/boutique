@@ -10,10 +10,10 @@ export default function Home() {
     <>
       <Hero />
       <CategoriesSection />
+      <CustomerExperience />
       <FeaturedProducts />
       <PromoSection />
       <ImageCarousel />
-      <CustomerExperience />
     </>
   );
 }
