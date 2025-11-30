@@ -5,6 +5,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { SparklesText } from "@/components/ui/sparkles-text";
 import { useImageError } from "@/hooks/use-image-error";
 import { TypeProduct } from "@/types/product";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -73,11 +74,11 @@ export default function FeaturedProducts() {
   return (
     <section id="featured-products" className="py-20 bg-white">
       {/* Section Header */}
-      <div className="mb-16 text-center">
+      <div className="mb-6 text-center">
         <div className="bg-black w-full py-6 mb-4">
-          <h2 className="text-4xl md:text-5xl font-light tracking-widest text-white">
+          <SparklesText className="text-3xl md:text-4xl font-light tracking-widest text-white">
             BEST SELLERS
-          </h2>
+          </SparklesText>
         </div>
       </div>
 

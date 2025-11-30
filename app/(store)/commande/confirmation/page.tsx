@@ -182,7 +182,7 @@ function OrderConfirmationContent() {
 
       if (orderData) {
         const message = formatOrderMessage();
-        const whatsappUrl = `https://wa.me/+33757837110?text=${encodeURIComponent(
+        const whatsappUrl = `https://wa.me/+33680719136?text=${encodeURIComponent(
           message
         )}`;
         window.open(whatsappUrl, "_blank");

@@ -10,9 +10,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const images = [
-  "/images/carousel-images/1764452840043-3clk89a43go.png",
+  "/images/carousel-images/a07b7b1f-6f06-44c4-9946-f6920397a501_0.png",
   "/images/carousel-images/1764449555607-oyfqzcr2zm8.png",
-  "/images/carousel-images/1764273331578-r82taekwo9s.png",
+  "/images/carousel-images/1764452840043-3clk89a43go.png",
   "/images/carousel-images/1764082678435-cuznu76ului.png",
   "/images/carousel-images/b3957f10-047f-4788-8ef1-964061c3880c.png",
   "/images/carousel-images/17642733423272-j1jhytnash.jpeg",
