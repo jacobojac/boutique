@@ -182,10 +182,17 @@ function OrderConfirmationContent() {
 
       if (orderData) {
         const message = formatOrderMessage();
-        const whatsappUrl = `https://wa.me/+33680719136?text=${encodeURIComponent(
+        const phoneNumber = "33680719136"; // Format international sans le +
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
           message
         )}`;
-        window.open(whatsappUrl, "_blank");
+
+        // Sur mobile, utiliser window.location.href au lieu de window.open
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          window.location.href = whatsappUrl;
+        } else {
+          window.open(whatsappUrl, "_blank");
+        }
 
         setTimeout(() => {
           clearCart();
