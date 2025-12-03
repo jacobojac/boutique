@@ -122,32 +122,30 @@ export default function WishlistPage() {
                 </button>
 
                 {/* Sale badge */}
-                {item.prixReduit && (
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-[#EA445A] text-white text-xs font-bold px-2 py-1 rounded">
-                      -
-                      {Math.round(
-                        ((item.prix - item.prixReduit) / item.prix) * 100
-                      )}
-                      %
+                {item.prixReduit && item.prixReduit > 0 ? (
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-gray-700 text-white px-3 py-1 text-xs font-medium">
+                      PROMO
                     </span>
                   </div>
-                )}
+                ) : null}
 
                 {/* New Badge */}
                 {item.collections?.some(
-                  (collection) => collection.toLowerCase() === "nouveautés"
-                ) && (
+                  (collection) => collection.toLowerCase() === "best-sellers"
+                ) ? (
                   <div
-                    className={`absolute top-3 z-10 ${
-                      item.prixReduit ? "right-3" : "left-3"
+                    className={`absolute top-4 z-10 ${
+                      item.prixReduit && item.prixReduit > 0
+                        ? "right-4"
+                        : "left-4"
                     }`}
                   >
-                    <span className="bg-green-600 text-white px-2 py-1 text-xs font-medium rounded">
-                      NOUVEAU
+                    <span className="bg-black text-white px-3 py-1 text-xs font-medium">
+                      BEST SELLER
                     </span>
                   </div>
-                )}
+                ) : null}
               </div>
 
               {/* Content */}

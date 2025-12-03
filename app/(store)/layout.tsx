@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: "Vente de vêtements et accessoires de mode",
 };
 
+// Revalider toutes les 5 minutes pour avoir les menus à jour
+export const revalidate = 300;
+
 export default async function RootLayout({
   children,
 }: Readonly<{

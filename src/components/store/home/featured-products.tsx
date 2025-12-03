@@ -169,7 +169,7 @@ export default function FeaturedProducts() {
                           {/* Sale Badge */}
                           {product.prixReduit && product.prixReduit > 0 ? (
                             <div className="absolute top-4 left-4 z-10">
-                              <span className="bg-black text-white px-2.5 py-1 text-[10px] font-light tracking-wider">
+                              <span className="bg-gray-700 text-white px-2.5 py-1 text-[10px] font-light tracking-wider">
                                 PROMO
                               </span>
                             </div>
