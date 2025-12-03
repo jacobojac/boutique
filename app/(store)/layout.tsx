@@ -1,5 +1,6 @@
 import Footer from "@/components/store/common/footer";
 import { Header } from "@/components/store/common/header";
+import ShoppingSteps from "@/components/store/common/shopping-steps";
 import { getNavigationMenus } from "@/lib/site-config";
 import type { Metadata } from "next";
 
@@ -22,6 +23,7 @@ export default async function RootLayout({
     <div className="overflow-x-hidden">
       <Header menuHomme={menuHomme} menuFemme={menuFemme} />
       <main className="mx-auto px-2 sm:px-6 lg:px-4">{children}</main>
+      <ShoppingSteps />
       <Footer menuHomme={menuHomme} menuFemme={menuFemme} />
     </div>
   );

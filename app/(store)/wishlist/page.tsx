@@ -46,7 +46,7 @@ export default function WishlistPage() {
 
   if (!hasHydrated || displayItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <div className="mb-8">
@@ -59,7 +59,7 @@ export default function WishlistPage() {
               Découvrez nos produits et ajoutez-les à votre wishlist
             </p>
             <Link href="/">
-              <Button className="bg-black hover:bg-gray-800 text-white px-8 py-3">
+              <Button className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-full">
                 Retour à la page d&#39;accueil
               </Button>
             </Link>
@@ -70,7 +70,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
@@ -101,7 +101,7 @@ export default function WishlistPage() {
           {displayItems.map((item) => (
             <div
               key={item.productId}
-              className="bg-white shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group"
+              className="bg-white duration-200 overflow-hidden group"
             >
               {/* Image */}
               <div className="relative aspect-square bg-gray-100">

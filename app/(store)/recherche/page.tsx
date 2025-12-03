@@ -112,64 +112,78 @@ function SearchResultsContent() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/produits/${product.slug}`}
-                className="group"
-              >
-                <div className="relative">
-                  {/* Product Image */}
+              <div key={product.id} className="group cursor-pointer">
+                <Link href={`/produits/${product.slug}`}>
                   <div className="aspect-square overflow-hidden bg-gray-100 mb-4 relative">
-                    {product.images && product.images.length > 0 ? (
-                      <Image
-                        src={product.images[0]}
-                        alt={product.nom}
-                        fill
-                        className="object-cover transition-opacity duration-300 group-hover:opacity-75"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                        <span className="text-gray-400 text-sm font-light">
-                          Aucune image
-                        </span>
-                      </div>
-                    )}
+                    {product.images && product.images.length > 0 && product.images[0] ? (
+                      <>
+                        <Image
+                          src={product.images[0]}
+                          alt={product.nom}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-all duration-300"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          quality={75}
+                        />
 
-                    {/* Sale Badge */}
-                    {product.prixReduit && product.prixReduit > 0 && (
-                      <div className="absolute top-4 left-4 z-10">
-                        <span className="bg-gray-700 text-white px-2.5 py-1 text-[10px] font-light tracking-wider">
-                          PROMO
-                        </span>
+                        {/* Sale Badge */}
+                        {product.prixReduit && product.prixReduit > 0 ? (
+                          <div className="absolute top-4 left-4 z-10">
+                            <span className="bg-gray-700 text-white px-3 py-1 text-xs font-medium">
+                              PROMO
+                            </span>
+                          </div>
+                        ) : null}
+
+                        {/* Best Seller Badge */}
+                        {product.collections?.some(
+                          (pc) => pc.collection.nom.toLowerCase() === "best sellers"
+                        ) ? (
+                          <div
+                            className={`absolute top-4 z-10 ${
+                              product.prixReduit && product.prixReduit > 0
+                                ? "right-4"
+                                : "left-4"
+                            }`}
+                          >
+                            <span className="bg-black text-white px-3 py-1 text-xs font-medium">
+                              BEST SELLER
+                            </span>
+                          </div>
+                        ) : null}
+                      </>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                        <span className="text-gray-400">Aucune image</span>
                       </div>
                     )}
                   </div>
+                </Link>
 
-                  {/* Product Info */}
-                  <div className="space-y-2">
-                    <h3 className="text-sm font-light text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2">
+                <div className="space-y-2">
+                  <Link href={`/produits/${product.slug}`}>
+                    <h3 className="font-medium text-gray-900 group-hover:text-gray-600 transition-colors">
                       {product.nom}
                     </h3>
-                    <div className="flex items-center gap-2">
-                      {product.prixReduit && product.prixReduit > 0 ? (
-                        <>
-                          <span className="text-sm font-normal text-black">
-                            {product.prixReduit.toFixed(2)}€
-                          </span>
-                          <span className="text-xs text-gray-400 line-through font-light">
-                            {product.prix.toFixed(2)}€
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-sm font-normal text-black">
-                          {product.prix.toFixed(2)}€
+                  </Link>
+                  <div className="flex items-center gap-2">
+                    {product.prixReduit && product.prixReduit > 0 ? (
+                      <>
+                        <span className="text-lg font-bold text-gray-900">
+                          {product.prixReduit.toFixed(2)} €
                         </span>
-                      )}
-                    </div>
+                        <span className="text-sm text-gray-500 line-through">
+                          {product.prix.toFixed(2)} €
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-lg font-bold text-gray-900">
+                        {product.prix.toFixed(2)} €
+                      </span>
+                    )}
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         )}
