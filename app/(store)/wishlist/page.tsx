@@ -88,10 +88,10 @@ export default function WishlistPage() {
             <Button
               variant="outline"
               onClick={handleClearWishlist}
-              className="mt-4 sm:mt-0"
+              className="mt-4 sm:mt-0 rounded-full"
             >
               <IconTrash className="mr-2 h-4 w-4" />
-              Vider la wishlist
+              Vider tous les favoris
             </Button>
           )}
         </div>
@@ -130,9 +130,9 @@ export default function WishlistPage() {
                   </div>
                 ) : null}
 
-                {/* New Badge */}
+                {/* Best Seller Badge */}
                 {item.collections?.some(
-                  (collection) => collection.toLowerCase() === "best-sellers"
+                  (collection) => collection.toLowerCase() === "best sellers"
                 ) ? (
                   <div
                     className={`absolute top-4 z-10 ${
@@ -178,7 +178,7 @@ export default function WishlistPage() {
                 <div className="flex space-x-2">
                   <Button
                     onClick={() => handleAddToCart(item)}
-                    className="flex-1 bg-black hover:bg-gray-800 text-white"
+                    className="flex-1 bg-black hover:bg-gray-800 text-white rounded-full"
                     size="sm"
                   >
                     Ajouter au panier
@@ -188,9 +188,9 @@ export default function WishlistPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleRemoveFromWishlist(item.productId)}
-                    className="px-3"
+                    className="px-3 rounded-full"
                   >
-                    <IconHeart className="h-4 w-4 text-red-500 fill-current" />
+                    <IconHeart className="h-4 w-4 text-[#EA445A] fill-current" />
                   </Button>
                 </div>
 

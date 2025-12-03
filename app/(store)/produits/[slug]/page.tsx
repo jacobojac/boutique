@@ -251,12 +251,12 @@ export default function Page() {
                     variant="outline"
                     size="icon"
                     onClick={handleWishlistToggle}
-                    className="hover:bg-red-50"
+                    className="hover:bg-red-50 rounded-full"
                   >
                     <IconHeart
                       className={`h-5 w-5 ${
                         product && hasHydrated && isInWishlist(product.id)
-                          ? "text-red-500 fill-current"
+                          ? "text-[#EA445A] fill-current"
                           : "text-gray-600"
                       }`}
                     />
