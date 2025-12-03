@@ -131,3 +131,17 @@
   -webkit-text-stroke: 1px black;
   text-stroke: 1px black;
 }
+
+/* Prevent zoom on input focus for iOS devices */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
