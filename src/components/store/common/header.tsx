@@ -10,6 +10,7 @@ import { CartDrawer } from "../cart/cart-drawer";
 import { AnnounecemntBar } from "./announcement-bar";
 import { NavMenu } from "./nav-menu";
 import { NavBarMobile } from "./nav-menu-mobile";
+import { SearchBar } from "./search-bar";
 
 interface HeaderProps {
   menuHomme: NavMenuItemWithCollection[];
@@ -60,6 +61,7 @@ export const Header = ({ menuHomme, menuFemme }: HeaderProps) => {
               <NavBarMobile menuHomme={menuHomme} menuFemme={menuFemme} />
             )}
             <div className="flex items-center gap-x-2">
+              <SearchBar />
               <WishlistIcon />
               <CartDrawer />
               {/* Mobile Menu */}
